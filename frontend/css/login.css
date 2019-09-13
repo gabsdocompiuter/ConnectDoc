@@ -1,0 +1,71 @@
+body {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    
+    width: 100px;
+    height: 100px;
+    
+    display: flex;
+    flex-direction: row;
+}
+
+.logo{
+    flex: 1;
+}
+
+.loginArea{
+    flex: 1;
+}
+
+.loginField{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFF;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    height: 20px;
+    width: 150px;
+
+    cursor: text;
+    transition: all 0.5s
+}
+
+.loginField.on label{
+    font-size: 11px;
+    color: #CCC;
+    transition: all 0.5s
+}
+
+.loginField label{
+    display: flex;
+    color: #999;
+    flex: 1;
+
+    font-size: 14px;
+    cursor: text;
+    transition: all 0.5s
+}
+
+.loginField.on input{
+    display: block;
+    transition: all 0.5s
+}
+
+.loginField input{
+    display: none;
+    color: #000;
+    font-size: 14px;
+
+    outline: 0;
+    border: 0;
+    background-color: #FFF;
+    transition: all 0.5s
+}
