@@ -16,7 +16,7 @@ function addLoginField(masterDiv, placeholder, type){
     };
     
     input.addEventListener("blur", () => {
-        if(!input.innerText){
+        if(!input.value){
             field.setAttribute('class', 'loginField');
         }
     });
