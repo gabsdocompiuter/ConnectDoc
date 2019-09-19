@@ -4,3 +4,29 @@ html {
 
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.button{
+    font-weight: bold;
+    font-size: 11pt;
+
+    border: 0;
+    border-radius: 5px;
+
+    height: 40px;
+    width: 100px;
+
+    cursor: pointer;
+}
+
+.button.primary{
+    color: #2B90F4;
+    background-color: #FFF;
+}
+
+.button.secondary{
+    color: #FFF;
+    background-color: #2B90F4;
+
+    border: 1px solid;
+    border-color: #FFF;
+}
