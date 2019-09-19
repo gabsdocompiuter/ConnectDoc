@@ -90,3 +90,8 @@ body {
     background-color: #FFF;
     transition: all 0.5s
 }
+
+#loginButtons{
+    display: flex;
+    justify-content: center;
+}
