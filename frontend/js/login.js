@@ -1,30 +1,48 @@
-function addLoginField(masterDiv, placeholder, type){
-    let label = document.createElement('label');
-    label.innerText = placeholder;
+function addLoginFields(){
+    addLoginField('loginArea', 'Login', 'text')
+    addLoginField('loginArea', 'Senha', 'password')
 
-    let input = document.createElement('input');
-    input.type = type;
+    ajustButtonsPosition();
 
-    let field = document.createElement('div');
-    field.setAttribute('class', 'loginField')
-    field.appendChild(label);
-    field.appendChild(input);
+    function addLoginField(masterDiv, placeholder, type){
+        let label = document.createElement('label');
+        label.innerText = placeholder;
     
-    field.onclick = () => {
-        field.setAttribute('class', 'loginField on');
-        input.focus();
-    };
+        let input = document.createElement('input');
+        input.type = type;
     
-    input.addEventListener("blur", () => {
-        if(!input.value){
-            field.setAttribute('class', 'loginField');
-        }
-    });
+        let field = document.createElement('div');
+        field.setAttribute('class', 'loginField')
+        field.appendChild(label);
+        field.appendChild(input);
+        
+        field.onclick = () => {
+            field.setAttribute('class', 'loginField on');
+            input.focus();
+        };
+        
+        input.addEventListener("blur", () => {
+            if(!input.value){
+                field.setAttribute('class', 'loginField');
+            }
+        });
+        
+        let dad = document.getElementById(masterDiv);
+        dad.appendChild(field);
+    }
     
-    let dad = document.getElementById(masterDiv);
-    dad.appendChild(field);
+    function ajustButtonsPosition(){
+        let loginArea = document.getElementById('loginArea');
+        let loginButtons = document.getElementById('loginButtons');
+    
+        loginArea.removeChild(loginButtons);
+        loginArea.appendChild(loginButtons);
+    }
 }
 
+//Função para realizar o login
+function doLogin(){
 
-addLoginField('loginArea', 'Login', 'text')
-addLoginField('loginArea', 'Senha', 'password')
+}
+
+addLoginFields();

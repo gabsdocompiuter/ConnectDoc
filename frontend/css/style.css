@@ -4,3 +4,77 @@ html {
 
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.button{
+    font-weight: bold;
+    font-size: 11pt;
+
+    border: 0;
+    border-radius: 5px;
+
+    height: 40px;
+    width: 100px;
+
+    cursor: pointer;
+}
+
+.button.primary{
+    color: #2B90F4;
+    background-color: #FFF;
+}
+
+.button.secondary{
+    color: #FFF;
+    background-color: #2B90F4;
+
+    border: 1px solid;
+    border-color: #FFF;
+}
+
+.menuContainer{
+    width: 96%;
+    margin-left: 2%;
+    display: flex;
+
+    flex-direction: column;
+}
+
+.menuLine{
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.menuLogo img{
+    width: 150px;
+}
+
+.menuBottons{
+    height: 100%;
+}
+
+.menuBottons ul li{
+    display: inline;
+    color: #FFF;
+
+    margin-left: 10px;
+
+    cursor: pointer;
+}
+
+.menuBottons ul li.active{
+    font-weight: bold;
+
+
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+.horizontalSeparator{
+    height: 1px;
+    background-color: #FFF;
+    width: 100%;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}   
