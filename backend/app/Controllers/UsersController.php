@@ -6,12 +6,12 @@
     /** * Listagem de usuários */ 
 
     public function index() { 
-        \App\View::make('users.index');
+        \App\View::make('\Usuarios\users.index');
         
     }
 
     public function cadastrar() { 
-        \App\View::make('users.cadastro');
+        \App\View::make('\Usuarios\users.cadastro');
         
     }
 
@@ -37,11 +37,13 @@
         }
         
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
+        $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
+        $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
         $senha = trim(password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT));
         
 
  
-        if (User::save($nome, $usuario, $email, $tipo, $telefone, $senha))
+        if (User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha))
         {
             header('Location: /BkconnectDoctor/');
             exit;
@@ -50,7 +52,7 @@
  
 
     public function loginHome() { 
-        \App\View::make('users.login');
+        \App\View::make('\Usuarios\users.login');
         
     }
 
@@ -86,7 +88,7 @@
     {
         $user = User::selectAll($id);
  
-        \App\View::make('users.edit');
+        \App\View::make('\Usuarios\users.edit');
     }
 
         /**
@@ -120,6 +122,7 @@
             exit;
         }
     }
+
 
 
 

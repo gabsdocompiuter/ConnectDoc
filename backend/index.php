@@ -76,11 +76,6 @@ $app->post('/edit', function ()
     $UsersController->update();
 });
  
-
-
-
-
-
 // remove um usuário
 $app->get('/remove/{id}', function ($request)
 {
@@ -89,6 +84,22 @@ $app->get('/remove/{id}', function ($request)
  
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->remove($id);
+});
+
+$app->get('/agenda', function ()
+{
+    
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->agenda();
+    
+});
+
+$app->post('/agenda', function ()
+{
+    
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->agendar();
+    
 });
  
 $app->run();

@@ -4,7 +4,7 @@ include BASE_PATH . "./config.php";
 class User { 
 
     //salva no BD o cadastro
-    public static function save($nome, $usuario, $email, $tipo, $telefone, $senha)
+    public static function save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha )
     {
         // validação (bem simples, só pra evitar dados vazios)
         if (empty($nome) || empty($usuario) ||  empty($email) ||  empty($tipo) || empty($telefone) || empty($senha))
@@ -16,6 +16,7 @@ class User {
           
         // insere no banco
         $DB = new DB;
+        //insere na tabela usuario    
         $sql = "INSERT INTO usuario(nome, usuario, email, tipo, telefone, senha) VALUES(:nome, :usuario, :email, :tipo, :telefone, :senha)";
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':nome', $nome);
@@ -24,8 +25,32 @@ class User {
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':senha', $senha);
+        $stmt->execute();
+
+            //verifica se é do tipo médico, caso seja, insere os dados
+            if($tipo == 1){
+            $idUser = $DB->lastInsertId();
+            $DB = new DB;
+            $sql = "INSERT INTO medicos(id_usuario, categoria, crm) VALUES(:id_usuario,:categoria, :crm)";
+            $stmt = $DB->prepare($sql);
+            $stmt->bindParam(':id_usuario', $idUser);
+            $stmt->bindParam(':categoria', $categoria);
+            $stmt->bindParam(':crm', $crm);
+            $stmt->execute();
+            $sim = true;
+            } 
+             //verifica se é do tipo secretaria, caso seja, insere os dados
+            else{ 
+            $idUser = $DB->lastInsertId();
+            $DB = new DB;
+            $sql = "INSERT INTO secretaria(id_usuario) VALUES(:id_usuario)";
+            $stmt = $DB->prepare($sql);
+            $stmt->bindParam(':id_usuario', $idUser);
+            $stmt->execute();
+            $controlador = true;
+            }
  
-        if ($stmt->execute())
+        if ($controlador)
         {
             return true;
         }
