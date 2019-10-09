@@ -4,8 +4,8 @@ define('BASE_PATH', dirname(__FILE__));
  
 // credenciais de acesso ao MySQL
 define('MYSQL_HOST', 'localhost');
-define('MYSQL_USER', 'root');
-define('MYSQL_PASS', '');
+define('MYSQL_USER', 'connectdoc');
+define('MYSQL_PASS', '7%H4ibRD0B@h');
 define('MYSQL_DBNAME', 'connectdoc');
  
 // configurações do PHP
