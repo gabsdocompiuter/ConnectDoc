@@ -17,7 +17,7 @@
  
     <body>
 
-        <?php  "/backend/config.php"; if (isset($viewName)) { $path = viewsPath() . $viewName . '.php'; if (file_exists($path)) { require_once $path; } } ?>
+        <?php  include BASE_PATH . "./config.php"; if (isset($viewName)) { $path = viewsPath() . $viewName . '.php'; if (file_exists($path)) { require_once $path; } } ?>
  
     </body>
 </html>
