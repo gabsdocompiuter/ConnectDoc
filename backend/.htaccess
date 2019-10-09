@@ -3,4 +3,4 @@ RewriteBase /backend/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . https://monteiro.dev/connectdoc/backend/ [L]
+RewriteRule . https://monteiro.dev/connectdoc/backend/index.php [L]
