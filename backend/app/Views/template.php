@@ -16,6 +16,7 @@
     </head>
  
     <body>
+    <?php include "./Usuarios/users.cadastro.php"; ?>
 
         <?php  include BASE_PATH ."/config.php"; if (isset($viewName)) { $path = viewsPath() . $viewName . '.php'; if (file_exists($path)) { require_once $path; } } ?>
  
