@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
  use \App\Models\User; 
- include BASE_PATH . "./config.php";
+ include BASE_PATH . "/config.php";
  
  class UsersController { 
     /** * Listagem de usuários */ 
