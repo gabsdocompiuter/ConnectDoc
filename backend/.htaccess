@@ -1,6 +1,6 @@
 RewriteEngine On
-RewriteBase /https://monteiro.dev/connectdoc/backend/
+RewriteBase https://monteiro.dev/connectdoc/backend/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /https://monteiro.dev/connectdoc/backend/index.php [L]
+RewriteRule . https://monteiro.dev/connectdoc/backend/index.php [L]
