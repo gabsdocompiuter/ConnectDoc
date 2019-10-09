@@ -45,7 +45,7 @@
  
         if (User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha))
         {
-            header('Location: /BkconnectDoctor/');
+            header('Location: ./');
             exit;
         }
     }
@@ -66,10 +66,10 @@
 
        if (!empty($users))
         {
-            header('Location: /BkconnectDoctor/');
+            header('Location: ./');
             exit;
         }else{
-            header('Location: /BkconnectDoctor/login');
+            header('Location: ./login');
             exit;
         }
         
@@ -79,7 +79,7 @@
     public function sair() { 
         
         if(User::sair()){
-            header('Location: /BkconnectDoctor/');
+            header('Location: ./');
             exit;
         }
     }
@@ -118,7 +118,7 @@
         //$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
         if (User::update($id, $nome, $email, $usuario, $tipo, $telefone, $senha))
         {
-            header('Location: /BkconnectDoctor/');
+            header('Location: ./');
             exit;
         }
     }
