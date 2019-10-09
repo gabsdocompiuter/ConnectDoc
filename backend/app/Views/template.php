@@ -16,7 +16,7 @@
     </head>
  
     <body>
-    <?php echo teste ?>
+
         <?php  include BASE_PATH . "/config.php"; if (isset($viewName)) { $path = viewsPath() . $viewName . '.php'; if (file_exists($path)) { require_once $path; } } ?>
  
     </body>
