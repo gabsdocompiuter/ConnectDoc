@@ -1,2 +1,3 @@
 <?php
-    header("Location: frontend");
+    $url = $_GET['url'];
+    header("Location: frontend/$url");
