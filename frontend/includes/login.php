@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <div id="logo">
-                <img src="../assets/logo_white.png" alt="Logo ConnectDoc"/>
+                <img src="<?= getAssetsDir() ?>/logo_white.png" alt="Logo ConnectDoc"/>
             </div>
 
             <div id="separator">
