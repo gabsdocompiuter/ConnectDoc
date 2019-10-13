@@ -1,7 +1,7 @@
 RewriteEngine On
+RewriteBase /frontend
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteBase /frontend/
 RewriteRule ^(.*)$ index.php?p=$1
