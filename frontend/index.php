@@ -1,7 +1,7 @@
 <?php
     define("BASE_DIR", "frontend");
 
-    require_once BASE_DIR . '/config.php';
+    require_once 'config.php';
 
     $p = array_key_exists('p', $_GET) ? $_GET['p'] : "home";
 
