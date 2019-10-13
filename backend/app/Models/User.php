@@ -1,6 +1,6 @@
 <?php namespace App\Models; 
 use App\DB; 
-include BASE_PATH . "./config.php";
+include BASE_PATH . "/config.php";
 class User { 
 
     //salva no BD o cadastro
