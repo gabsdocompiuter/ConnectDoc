@@ -6,13 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ConnectDoc login</title>
 
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="<?= getIncludesDir('css/style.css') ?>" >
+        <link rel="stylesheet" href="<?= getIncludesDir('css/login.css') ?>" >
     </head>
     <body>
         <div class="container">
             <div id="logo">
-                <img src="<?= getAssetsDir() ?>/logo_white.png" alt="Logo ConnectDoc"/>
+                <img src="<?= getIncludesDir('assets/logo_white.png') ?>" alt="Logo ConnectDoc"/>
             </div>
 
             <div id="separator">
@@ -29,6 +29,6 @@
             </div>
         </div>
 
-        <script src="js/login.js"></script>
+        <script src="<?= getIncludesDir('js/login.js') ?>"></script>
     </body>
 </html>
