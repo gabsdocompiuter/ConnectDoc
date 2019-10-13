@@ -1,12 +1,12 @@
 <?php
 
-function paginaValida($page){
-    return file_exists("includes/$page.php");
-}
+    function paginaValida($page){
+        return file_exists("includes/$page.php");
+    }
 
-$p = array_key_exists('p', $_GET) ? $_GET['p'] : "home";
+    $p = array_key_exists('p', $_GET) ? $_GET['p'] : "home";
 
-if($p != 'backend'){
+    //include 'includes/login.php';
 
     session_start();
     $usuarioLogado = ISSET($_COOKIE['user']) || ISSET($_SESSION['user']) ? true : false;
@@ -37,4 +37,3 @@ if($p != 'backend'){
     else{
         header("Location: login");
     }
-}
