@@ -1,18 +1,15 @@
 <?php namespace App\Controllers;
- use \App\Models\User; 
- include BASE_PATH . "/config.php";
+use \App\Models\User; 
+include BASE_PATH . "/config.php";
  
- class UsersController { 
-    /** * Listagem de usuários */ 
-
+/* Listagem de usuários */ 
+class UsersController {
     public function index() { 
         \App\View::make('\Usuarios\users.index');
-        
     }
 
-    public function cadastrar() { 
+    public function cadastrar() {
         \App\View::make('\Usuarios\users.cadastro');
-        
     }
 
     //processa o cadastro e insere no BD
@@ -53,7 +50,6 @@
 
     public function loginHome() { 
         \App\View::make('\Usuarios\users.login');
-        
     }
 
     public function logar() { 
@@ -63,15 +59,18 @@
 
         $users = User::logar($usuario, $senha);
         
+        $ret = array(
+            'sucess' => true,
+            'message' => 'ok'
+        );
+        
+        if (!empty($users)){
 
-       if (!empty($users))
-        {
-            header('Location: ./');
-            exit;
         }else{
-            header('Location: ./login');
-            exit;
+            
         }
+        echo json_encode($ret);
+        exit;
         
         
     }
