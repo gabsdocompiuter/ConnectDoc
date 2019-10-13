@@ -1,8 +1,7 @@
 <?php
+    define("BASE_DIR", "frontend");
 
-    function paginaValida($page){
-        return file_exists("includes/$page.php");
-    }
+    require_once BASE_DIR . 'config.php';
 
     $p = array_key_exists('p', $_GET) ? $_GET['p'] : "home";
 
