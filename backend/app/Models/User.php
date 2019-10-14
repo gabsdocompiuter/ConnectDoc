@@ -1,14 +1,27 @@
-<?php namespace App\Models; 
+<?php namespace App\Models;
+
 use App\DB; 
 include BASE_PATH . "/config.php";
-class User { 
+class User {
 
     //salva no BD o cadastro
-    public static function save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha )
-    {
+    public static function save(
+        $nome,
+        $usuario,
+        $email,
+        $tipo,
+        $telefone,
+        $crm,
+        $categoria,
+        $senha){
+        
         // validação (bem simples, só pra evitar dados vazios)
-        if (empty($nome) || empty($usuario) ||  empty($email) ||  empty($tipo) || empty($telefone) || empty($senha))
-        {
+        if (empty($nome)
+        ||  empty($usuario)
+        ||  empty($email)
+        ||  empty($tipo)
+        ||  empty($telefone)
+        ||  empty($senha)){
             echo "Volte e preencha todos os campos";
             return false;
         }
@@ -65,8 +78,7 @@ class User {
     public static function logar($usuario,$senha){
         if (empty($usuario) ||  empty($senha))
         {
-            echo "Volte e preencha todos os campos";
-            return false;
+            return getJsonResponse(false, 'Campos não informados');
         }
 
         $DB = new DB;
