@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 use \App\Models\User; 
-include BASE_PATH . "/config.php";
+require_once BASE_PATH . "/config.php";
  
 /* Listagem de usuários */ 
 class UsersController {
@@ -58,11 +58,6 @@ class UsersController {
         $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
 
         $users = User::logar($usuario, $senha);
-        
-        $ret = array(
-            'sucess' => true,
-            'message' => 'ok'
-        );
         
         if (!empty($users)){
 
