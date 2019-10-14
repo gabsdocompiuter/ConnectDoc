@@ -57,17 +57,8 @@ class UsersController {
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
         $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
 
-        $users = User::logar($usuario, $senha);
-        
-        if (!empty($users)){
-
-        }else{
-            
-        }
-        echo json_encode($ret);
+        User::logar($usuario, $senha);
         exit;
-        
-        
     }
 
     public function sair() { 
