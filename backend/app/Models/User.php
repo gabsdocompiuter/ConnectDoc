@@ -90,12 +90,13 @@ class User {
         
         if ($stmt->execute())
         {
-            $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
+            
             if(!$stmt->fetchColumn()){
                 return getJsonResponse(false, "$usuario nao encontrado");
             }
             else{
+                $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                print_r($users);
                 $user = $users[0];
 
                 if($user['usuario'] == null){
