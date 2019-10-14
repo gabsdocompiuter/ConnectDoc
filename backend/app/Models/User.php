@@ -76,6 +76,8 @@ class User {
     }
 
     public static function logar($usuario,$senha){
+        $msgErro = 'Usuário ou senha inválidos';
+
         if (empty($usuario) ||  empty($senha))
         {
             return getJsonResponse(false, 'Campos não informados');
@@ -85,34 +87,30 @@ class User {
         $sql = "SELECT id, usuario, senha FROM usuario WHERE usuario=:usuario";
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':usuario', $usuario);
-
         
         if ($stmt->execute())
         {
             $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            
 
-                foreach ($users as $user){
-                    if($user['usuario'] == null){
-                        $_SESSION['logado'] = false;
-                    }else if(password_verify($senha, $user['senha'])){
-                        $_SESSION['usuario'] = $user['usuario'];
-                        $_SESSION['id'] = $user['id'];
-                        $_SESSION['logado'] = true;
-                    }
-                    
+            if(!$stmt->fetchColumn()){
+                return getJsonResponse(false, "$usuario nao encontrado");
+            }
+            else{
+                $user = $users[0];
+
+                if($user['usuario'] == null){
+                    return getJsonResponse(false, $msgErro);
+                }else if(password_verify($senha, $user['senha'])){
+                    $responseUser = array(
+                        'success' => true,
+                        'usuario' => $user['usuario'],
+                        'id' => $user['id']
+                    );
+                    return json_encode($responseUser);
                 }
-            
-                return $users;
-            
-            
+            }
         }
-        else
-        {
-            echo "Erro ao Logar";
-            print_r($stmt->errorInfo());
-            return false;
-        }
+        else return getJsonResponse(false, 'Erro ao logar - ' . $stmt->errorInfo());
 
     }
 
