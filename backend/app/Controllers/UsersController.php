@@ -57,12 +57,10 @@ class UsersController {
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
         $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
 
-        User::logar($usuario, $senha);
-        exit;
+        echo User::logar($usuario, $senha);
     }
 
     public function sair() { 
-        
         if(User::sair()){
             header('Location: ./');
             exit;
