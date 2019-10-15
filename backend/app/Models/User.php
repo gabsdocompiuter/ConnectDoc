@@ -79,30 +79,30 @@ class User {
         }
 
         $DB = new DB;
-        $sql = "SELECT id, usuario FROM usuario WHERE usuario=:usuario";
+        $sql = "SELECT id, usuario, senha FROM usuario WHERE usuario=:usuario";
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':usuario', $usuario);
         
         if ($stmt->execute())
         {
-            if(!$stmt->fetchColumn()){
-                return getJsonResponse(false, "$usuario nao encontrado");
+            $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($users) <= 0){
+                return getJsonResponse(false, $msgErro);
             }
             else{
-                $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-                return json_encode($users);
                 $user = $users[0];
 
                 if($user['usuario'] == null)
                     return getJsonResponse(false, $msgErro);
-                // else if(password_verify($senha, $user['senha'])){
-                //     $responseUser = array(
-                //         'success' => true,
-                //         'usuario' => $user['usuario'],
-                //         'id' => $user['id']
-                //     );
-                //     return json_encode($responseUser);
-                // }
+                else if(password_verify($senha, $user['senha'])){
+                    $responseUser = array(
+                        'success' => true,
+                        'usuario' => $user['usuario'],
+                        'id' => $user['id']
+                    );
+                    return json_encode($responseUser);
+                }
+                else return getJsonResponse(false, $msgErro . '2');
             }
         }
         else return getJsonResponse(false, 'Erro ao logar - ' . $stmt->errorInfo());
