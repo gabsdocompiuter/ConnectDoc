@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
 use App\DB; 
-require_once BASE_PATH . "/config.php";
+include_once BASE_PATH . "/config.php";
 class User {
 
     //salva no BD o cadastro
@@ -22,8 +22,7 @@ class User {
         ||  empty($tipo)
         ||  empty($telefone)
         ||  empty($senha)){
-            echo "Volte e preencha todos os campos";
-            return false;
+            return getJsonResponse(false, 'Campos nao informados');
         }
         
           
@@ -39,9 +38,9 @@ class User {
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':senha', $senha);
         $stmt->execute();
-
-            //verifica se é do tipo médico, caso seja, insere os dados
-            if($tipo == 1){
+/*
+        //verifica se é do tipo médico, caso seja, insere os dados
+        if($tipo == 1){
             $idUser = $DB->lastInsertId();
             $DB = new DB;
             $sql = "INSERT INTO medicos(id_usuario, categoria, crm) VALUES(:id_usuario,:categoria, :crm)";
@@ -62,53 +61,48 @@ class User {
             $stmt->execute();
             $controlador = true;
             }
- 
+*/
+        $controlador = true;
         if ($controlador)
         {
-            return true;
+            return getJsonResponse(true, 'Cadastrado com sucesso');
         }
-        else
-        {
-            echo "Erro ao cadastrar";
-            print_r($stmt->errorInfo());
-            return false;
-        }
+        else return getJsonResponse(false, 'Erro ao cadastrar - ' . $stmt->errorInfo());
     }
 
-    public static function logar($usuario,$senha){
-        $msgErro = 'Usuário ou senha inválidos';
+    public static function logar($usuario, $senha){
+        $msgErro = 'Usuario ou senha invalidos';
 
-        if (empty($usuario) ||  empty($senha))
+        if (empty($usuario) || empty($senha))
         {
-            return getJsonResponse(false, 'Campos não informados');
+            return getJsonResponse(false, 'Campos nao informados');
         }
 
         $DB = new DB;
-        $sql = "SELECT id, usuario, senha FROM usuario WHERE usuario=:usuario";
+        $sql = "SELECT id, usuario FROM usuario WHERE usuario=:usuario";
         $stmt = $DB->prepare($sql);
         $stmt->bindParam(':usuario', $usuario);
         
         if ($stmt->execute())
         {
-            
             if(!$stmt->fetchColumn()){
                 return getJsonResponse(false, "$usuario nao encontrado");
             }
             else{
                 $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-                print_r($users);
+                return json_encode($users);
                 $user = $users[0];
 
-                if($user['usuario'] == null){
+                if($user['usuario'] == null)
                     return getJsonResponse(false, $msgErro);
-                }else if(password_verify($senha, $user['senha'])){
-                    $responseUser = array(
-                        'success' => true,
-                        'usuario' => $user['usuario'],
-                        'id' => $user['id']
-                    );
-                    return json_encode($responseUser);
-                }
+                // else if(password_verify($senha, $user['senha'])){
+                //     $responseUser = array(
+                //         'success' => true,
+                //         'usuario' => $user['usuario'],
+                //         'id' => $user['id']
+                //     );
+                //     return json_encode($responseUser);
+                // }
             }
         }
         else return getJsonResponse(false, 'Erro ao logar - ' . $stmt->errorInfo());

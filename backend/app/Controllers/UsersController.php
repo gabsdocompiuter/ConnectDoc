@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 use \App\Models\User; 
-require_once BASE_PATH . "/config.php";
+include_once BASE_PATH . "/config.php";
  
 /* Listagem de usuários */ 
 class UsersController {
@@ -37,14 +37,8 @@ class UsersController {
         $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
         $senha = trim(password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT));
-        
-
  
-        if (User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha))
-        {
-            header('Location: ./');
-            exit;
-        }
+        echo User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha);
     }
  
 

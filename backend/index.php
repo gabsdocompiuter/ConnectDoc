@@ -28,10 +28,8 @@ $app->get('/cadastrar', function ()
 
 $app->post('/cadastrar', function ()
 {
-    
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->store();
-    
 });
 
 

@@ -1,5 +1,5 @@
 <?php namespace App\Controllers;
- include BASE_PATH . "/config.php";
+ require_once BASE_PATH . "/config.php";
  
  class AgendaController { 
 
