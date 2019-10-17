@@ -91,7 +91,7 @@ class UsersController {
             $tipo = null;
         }
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
-        $senha = trim(password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT));
+        $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
         //$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
         if (User::update($id, $nome, $email, $usuario, $tipo, $telefone, $senha))
         {

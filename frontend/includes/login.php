@@ -19,36 +19,17 @@
                 <div id="separatorLine"></div>
             </div>
 
-            <div id="loginArea" class="loginArea">
+            <form id="loginArea" class="loginArea">
                 <div id="loginButtons">
-                    <button
-                        class="button primary"
-                        onclick="doLogin()"
-                    >Entrar</button>
-                </div>
-            </div>
-        </div>
-
-        <script src="<?= getIncludesDir('js/login.js') ?>"></script>
-        <script>
-        let loginForm = document.getElementById('loginForm');
-            loginForm.onsubmit = event => {
-                event.preventDefault();
-
-                if(loginForm.checkValidity()){
-                    const bodyFormData = new FormData();
-                    bodyFormData.set('login', document.getElementById('').innerText);
+               
+                <button type="submit" class="button primary">Entrar</button>
+             
                     
-                    callAction('api/login', bodyFormData, (response) => {
-                        if(response.success){
-                            window.location.href = 'dashboard';
-                        }
-                        else{
-                            console.error(`Erro: ${response.message}`);
-                        }
-                    });
-                }
-            }
-        </script>
+                </div>
+            </form>
+        </div>
+        <script src="<?= getIncludesDir('js/core/axios.js') ?>"></script>
+        <script src="<?= getIncludesDir('js/login.js') ?>"></script>
+       
     </body>
 </html>
