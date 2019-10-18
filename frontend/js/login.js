@@ -1,14 +1,15 @@
 function addLoginFields(){
-    addLoginField('loginArea', 'Login', 'text')
-    addLoginField('loginArea', 'Senha', 'password')
+    addLoginField('loginArea', 'userLogin', 'Login', 'text')
+    addLoginField('loginArea', 'userPass', 'Senha', 'password')
 
     ajustButtonsPosition();
 
-    function addLoginField(masterDiv, placeholder, type){
+    function addLoginField(masterDiv, idNewElement, placeholder, type){
         let label = document.createElement('label');
         label.innerText = placeholder;
     
         let input = document.createElement('input');
+        input.setAttribute('id', idNewElement);
         input.type = type;
     
         let field = document.createElement('div');
