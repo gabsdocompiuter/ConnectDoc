@@ -49,7 +49,7 @@ loginForm.onsubmit = event => {
         const bodyFormData = new FormData(loginForm);
         
         
-        callAction('backend/login', bodyFormData, (response) => {
+        callAction('/backend/login', bodyFormData, (response) => {
             if(response.success){
                 window.location.href = 'dashboard';
             }
