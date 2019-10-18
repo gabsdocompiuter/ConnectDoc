@@ -30,5 +30,25 @@
         </div>
 
         <script src="<?= getIncludesDir('js/login.js') ?>"></script>
+        <script>
+        let loginForm = document.getElementById('loginForm');
+            loginForm.onsubmit = event => {
+                event.preventDefault();
+
+                if(loginForm.checkValidity()){
+                    const bodyFormData = new FormData();
+                    bodyFormData.set('login', document.getElementById('').innerText);
+                    
+                    callAction('api/login', bodyFormData, (response) => {
+                        if(response.success){
+                            window.location.href = 'dashboard';
+                        }
+                        else{
+                            console.error(`Erro: ${response.message}`);
+                        }
+                    });
+                }
+            }
+        </script>
     </body>
 </html>
