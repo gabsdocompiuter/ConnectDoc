@@ -94,7 +94,7 @@ class User {
 
                 if($user['usuario'] == null)
                     return getJsonResponse(false, $msgErro);
-                else if(crypt($senha, $user['senha'])==$user['senha']){
+                else if(base64_encode($senha) == $user['senha']){
                     $responseUser = array(
                         'success' => true,
                         'usuario' => $user['usuario'],
@@ -102,7 +102,7 @@ class User {
                     );
                     return json_encode($responseUser);
                 }
-                else return getJsonResponse(false, $msgErro . '2');
+                else return getJsonResponse(false, $msgErro);
             }
         }
         else return getJsonResponse(false, 'Erro ao logar - ' . $stmt->errorInfo());
