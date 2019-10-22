@@ -29,6 +29,7 @@
             </form>
         </div>
         <script src="<?= getIncludesDir('js/core/axios.min.js') ?>"></script>
+        <script src="<?= getIncludesDir('js/formAjax.js') ?>"></script>
         <script src="<?= getIncludesDir('js/login.js') ?>"></script>
        
     </body>

@@ -3,12 +3,10 @@
 
     require_once 'config.php';
 
-    $p = array_key_exists('p', $_GET) ? $_GET['p'] : "home";
-
-    //include 'includes/login.php';
+    $p = array_key_exists('p', $_GET) ? $_GET['p'] : "dash";
 
     session_start();
-    $usuarioLogado = ISSET($_COOKIE['user']) || ISSET($_SESSION['user']) ? true : false;
+    $usuarioLogado = ISSET($_SESSION['user']);
 
     if($usuarioLogado){
         //Se tentar logar, manda pra home

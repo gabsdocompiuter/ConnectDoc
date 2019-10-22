@@ -1,6 +1,6 @@
 function addLoginFields(){
-    addLoginField('loginArea', 'userLogin', 'Login', 'text')
-    addLoginField('loginArea', 'userPass', 'Senha', 'password')
+    addLoginField('loginArea', 'usuario', 'Login', 'text')
+    addLoginField('loginArea', 'senha', 'Senha', 'password')
 
     ajustButtonsPosition();
 
