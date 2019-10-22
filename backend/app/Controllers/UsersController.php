@@ -28,6 +28,8 @@ class UsersController {
             }
             else if($tipo == 'secretaria'){
                 $tipo = 2;
+            }else if($tipo == 'paciente'){
+                $tipo = 3;
             }
         }else{
             $tipo = null;
@@ -35,10 +37,11 @@ class UsersController {
         
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
         $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
+        $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : null;
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
-        $senha = trim(password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT));
+        $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
  
-        echo User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $categoria, $senha);
+        echo User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $cpf, $categoria, $senha);
     }
  
 
@@ -86,14 +89,18 @@ class UsersController {
             }
             else if($tipo == 'secretaria'){
                 $tipo = 2;
+            }else if($tipo == 'paciente'){
+                $tipo = 3;
             }
         }else{
             $tipo = null;
         }
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
+        $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
+        $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : null;
         $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
         //$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
-        if (User::update($id, $nome, $email, $usuario, $tipo, $telefone, $senha))
+        if (User::update($id, $nome, $email, $usuario, $tipo, $telefone, $crm, $cpf, $senha))
         {
             header('Location: ./');
             exit;

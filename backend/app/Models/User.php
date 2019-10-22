@@ -12,6 +12,7 @@ class User {
         $tipo,
         $telefone,
         $crm,
+        $cpf,
         $categoria,
         $senha){
         
@@ -38,9 +39,12 @@ class User {
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':senha', $senha);
         $stmt->execute();
-/*
+
         //verifica se é do tipo médico, caso seja, insere os dados
         if($tipo == 1){
+            if(empty($crm) ||  empty($categoria)){
+                return getJsonResponse(false, 'Campos nao informados');
+            }
             $idUser = $DB->lastInsertId();
             $DB = new DB;
             $sql = "INSERT INTO medicos(id_usuario, categoria, crm) VALUES(:id_usuario,:categoria, :crm)";
@@ -49,10 +53,10 @@ class User {
             $stmt->bindParam(':categoria', $categoria);
             $stmt->bindParam(':crm', $crm);
             $stmt->execute();
-            $sim = true;
+            $controlador = true;
             } 
              //verifica se é do tipo secretaria, caso seja, insere os dados
-            else{ 
+            else if($tipo == 2){ 
             $idUser = $DB->lastInsertId();
             $DB = new DB;
             $sql = "INSERT INTO secretaria(id_usuario) VALUES(:id_usuario)";
@@ -61,8 +65,23 @@ class User {
             $stmt->execute();
             $controlador = true;
             }
-*/
-        $controlador = true;
+            //verifica se é do tipo paciente, caso seja, insere os dados
+            else if($tipo == 3){ 
+                
+                if(empty($cpf)){
+                    return getJsonResponse(false, 'Campos nao informados');
+                }
+                $idUser = $DB->lastInsertId();
+                $DB = new DB;
+                $sql = "INSERT INTO paciente(id_usuario, cpf) VALUES(:id_usuario, :cpf)";
+                $stmt = $DB->prepare($sql);
+                $stmt->bindParam(':id_usuario', $idUser);
+                $stmt->bindParam(':cpf', $cpf);
+                $stmt->execute();
+                $controlador = true;
+                }
+
+       
         if ($controlador)
         {
             return getJsonResponse(true, 'Cadastrado com sucesso');
