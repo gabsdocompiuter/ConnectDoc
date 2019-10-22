@@ -113,7 +113,7 @@ class User {
 
                 if($user['usuario'] == null)
                     return getJsonResponse(false, $msgErro);
-                else if(base64_encode($senha) == $user['senha']){
+                else if(crypt($senha, $user['senha'])==$user['senha']){
                     $responseUser = array(
                         'success' => true,
                         'usuario' => $user['usuario'],
