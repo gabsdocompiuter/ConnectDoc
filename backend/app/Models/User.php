@@ -136,52 +136,94 @@ class User {
 
     public static function selectAll($id) { 
 
-            $sql = "SELECT id, nome, usuario, email, tipo, telefone, senha FROM usuario where id = :id"; 
-            $DB = new DB; 
-            $stmt = $DB->prepare($sql);
-            $stmt->bindParam(':id', $id);
- 
-            if ($stmt->execute())
-            {
-                $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $sql = "SELECT id, nome, usuario, email, tipo, telefone, senha FROM usuario where id = :id"; 
+        $DB = new DB; 
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute())
+        {
+            $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($users) <= 0){
+                return getJsonResponse(false, $msgErro);
+            }
+            else{
+            $user = $users[0];
+           if($user['tipo'] == 1){
+                $sql = "SELECT id, id_usuario, categoria, crm FROM medicos where id_usuario = :id"; 
+                $DB = new DB; 
+                $stmt = $DB->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                $medico = $medicos[0];
+                $categoria = $medico['categoria'];
+                $crm = $medico['crm'];
+                $editUser = array(
+                    'nome' => $user['nome'],
+                    'usuario'=> $user['usuario'],
+                    'email' => $user['email'],
+                    'telefone' => $user['telefone'],
+                    'crm' => $crm,
+                    'categoria' => $categoria,
+                    'senha' => $user['senha']
     
-                    foreach ($users as $user){
-                        $_SESSION['nome'] = $user['nome'];
-                        $_SESSION['usuario'] = $user['usuario'];
-                        $_SESSION['email'] = $user['email'];
-                        if($user['tipo'] == 1){
-                            $_SESSION['tipo'] = 'medico';
-                        }else{
-                            $_SESSION['tipo'] = 'secretaria';
-                        }
-               
-                        $_SESSION['telefone'] = $user['telefone'];
-                        $_SESSION['senha'] = $user['senha'];
-                    }
+                );
+            }else if($user['tipo'] == 2){
+                $editUser = array(
+                    'nome' => $user['nome'],
+                    'usuario'=> $user['usuario'],
+                    'email' => $user['email'],
+                    'telefone' => $user['telefone'],
+                    'senha' => $user['senha']
+    
+                );
                 
-                    return $users;
-                
+            }else if($user['tipo'] == 3){
+                $sql = "SELECT id, id_usuario, cpf FROM paciente where id_usuario = :id"; 
+                $DB = new DB; 
+                $stmt = $DB->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $pacientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                $paciente = $pacientes[0];
+                $cpf = $paciente['cpf'];
+                $editUser = array(
+                    'nome' => $user['nome'],
+                    'usuario'=> $user['usuario'],
+                    'email' => $user['email'],
+                    'telefone' => $user['telefone'],
+                    'cpf' => $cpf,
+                    'senha' => $user['senha']
+    
+                );
                 
             }
-            else
-            {
-                echo "Erro ao Editar";
-                print_r($stmt->errorInfo());
-                return false;
-            }
+    
+            return json_encode($editUser);
+            
+        }
+        }
+        else
+        {
+           return getJsonResponse(false, 'Erro ao editar - ' . $stmt->errorInfo());
+        }
     }
 
 
         /**
      * Altera no banco de dados um usuário
      */
-    public static function update($id, $nome, $email, $usuario, $tipo, $telefone, $senha)
+    public static function update($id, $nome, $email, $usuario, $tipo, $telefone, $crm, $cpf, $categoria, $senha)
     {
         // validação (bem simples, só pra evitar dados vazios)
-        if (empty($nome) || empty($usuario) ||  empty($email) || empty($tipo) || empty($telefone) ||  empty($senha))
-        {
-            echo "Volte e preencha todos os campos";
-            return false;
+        if (empty($nome)
+        ||  empty($usuario)
+        ||  empty($email)
+        ||  empty($tipo)
+        ||  empty($telefone)
+        ||  empty($senha)){
+            return getJsonResponse(false, 'Campos nao informados');
         }
        
           
@@ -196,17 +238,49 @@ class User {
         $stmt->bindParam(':telefone', $telefone);
         $stmt->bindParam(':senha', $senha);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+
+
+        //verifica se é do tipo médico, caso seja, insere os dados
+        if($tipo == 1){
+            if(empty($crm) ||  empty($categoria)){
+                return getJsonResponse(false, 'Campos nao informados');
+            }
+           
+            $DB = new DB;
+            $sql = "UPDATE medicos SET categoria = :categoria, crm = :crm  WHERE id_usuario = :id";
+            $stmt = $DB->prepare($sql);
+            $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+            $stmt->bindParam(':categoria', $categoria);
+            $stmt->bindParam(':crm', $crm);
+            $stmt->execute();
+            $controlador = true;
+            } 
+             //Não precisa verifica se é do tipo secretaria, pois a secretaria não tem nenhum dado a mais, caso seja, insere os dados
+
+            //verifica se é do tipo paciente, caso seja, insere os dados
+            else if($tipo == 3){ 
+                
+                if(empty($cpf)){
+                    return getJsonResponse(false, 'Campos nao informados');
+                }
+             
+                $DB = new DB;
+                $sql = "UPDATE paciente SET cpf = :cpf WHERE id_usuario = :id";
+                $stmt = $DB->prepare($sql);
+                $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+                $stmt->bindParam(':cpf', $cpf);
+                $stmt->execute();
+                $controlador = true;
+                }
  
-        if ($stmt->execute())
+        if ($controlador)
         {
-            $_SESSION['usuario'] = $usuario;
-            return true;
+            return $usuario;
         }
         else
         {
-            echo "Erro ao cadastrar";
-            print_r($stmt->errorInfo());
-            return false;
+           return getJsonResponse(false, 'Erro ao editar - ' . $stmt->errorInfo());
         }
     }
  

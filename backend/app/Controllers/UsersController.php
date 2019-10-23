@@ -66,9 +66,9 @@ class UsersController {
 
     public function edit($id)
     {
-        $user = User::selectAll($id);
+       echo User::selectAll($id);
  
-        \App\View::make('\Usuarios\users.edit');
+        //\App\View::make('\Usuarios\users.edit');
     }
 
         /**
@@ -77,7 +77,7 @@ class UsersController {
     public function update()
     {
         // pega os dados do formuário
-        $id = $_SESSION['id'];
+        $id = isset($_POST['id']) ? $_POST['id'] : null;
         $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
         $email = isset($_POST['email']) ? $_POST['email'] : null;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
@@ -98,13 +98,11 @@ class UsersController {
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
         $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
         $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : null;
+        $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
         $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
         //$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
-        if (User::update($id, $nome, $email, $usuario, $tipo, $telefone, $crm, $cpf, $senha))
-        {
-            header('Location: ./');
-            exit;
-        }
+        echo User::update($id, $nome, $email, $usuario, $tipo, $telefone, $crm, $cpf, $categoria, $senha);
+        
     }
 
 
