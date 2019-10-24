@@ -51,7 +51,8 @@ loginForm.onsubmit = event => {
         
         callAction('backend/login', bodyFormData, (response) => {
             if(response.success){
-                window.location.href = 'dashboard';
+                console.log("ok");
+                //window.location.href = 'dashboard';
             }
             else{
                 console.error(`Erro: ${response.message}`);
