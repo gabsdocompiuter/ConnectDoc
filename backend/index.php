@@ -83,7 +83,7 @@ $app->get('/remove/{id}', function ($request)
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->remove($id);
 });
-
+//exibe todas agendas para a secretaria
 $app->get('/agenda', function ()
 {
     
@@ -91,13 +91,31 @@ $app->get('/agenda', function ()
     $AgendaController->agenda();
     
 });
-
-$app->post('/agenda', function ()
+//cadastrar uma nova agenda
+$app->post('/agenda/cadastrar', function ()
 {
     
     $AgendaController = new \App\Controllers\AgendaController;
-    $AgendaController->agendar();
+    $AgendaController->store();
     
+});
+
+// edição de usuário
+// exibe o formulário de edição de agenda
+$app->get('/agenda/edit/{id}', function ($request)
+{
+    // pega o ID da URL
+    $id = $request->getAttribute('id');
+ 
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->edit($id);
+});
+ 
+// processa o formulário de edição de agenda
+$app->post('/agenda/edit', function ()
+{
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->update();
 });
  
 $app->run();

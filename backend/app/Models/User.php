@@ -134,7 +134,27 @@ class User {
         return true;
     }
 
-    public static function selectAll($id) { 
+    public static function remove($id){
+        $sql = "DELETE FROM usuario where id = :id"; 
+        $DB = new DB; 
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':id', $id);
+
+        if ($stmt->execute())
+        {
+    
+            return json_encode("ok");
+            
+            
+        }
+        else
+        {
+           return getJsonResponse(false, 'Erro ao deletar usuário - ' . $stmt->errorInfo());
+        }
+        
+    }
+    //consulta para editar registro
+    public static function selectEdit($id) { 
 
         $sql = "SELECT id, nome, usuario, email, tipo, telefone, senha FROM usuario where id = :id"; 
         $DB = new DB; 
@@ -202,7 +222,7 @@ class User {
     
             return json_encode($editUser);
             
-        }
+            }
         }
         else
         {

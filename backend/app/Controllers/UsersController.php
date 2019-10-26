@@ -66,7 +66,14 @@ class UsersController {
 
     public function edit($id)
     {
-       echo User::selectAll($id);
+       echo User::selectEdit($id);
+ 
+        //\App\View::make('\Usuarios\users.edit');
+    }
+
+    public function remove($id)
+    {
+       echo User::remove($id);
  
         //\App\View::make('\Usuarios\users.edit');
     }
