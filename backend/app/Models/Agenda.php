@@ -102,11 +102,53 @@ include_once BASE_PATH . "/config.php";
         }
 
         public static function selectAll(){
-            
-
-            $sql = "SELECT * FROM agenda"; 
+            //busca todos os registros da agenda
+            $sql = "SELECT * from agenda "; 
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
+            $stmt->execute();
+            $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            
+            //busca o nome do medico 
+            $sql = "SELECT distinct age.*, med.*, us.nome
+            FROM agenda age
+           INNER JOIN medicos med ON age.id_medico = med.id JOIN usuario us ON us.id = med.id_usuario "; 
+            $DB = new DB; 
+            $stmt = $DB->prepare($sql);
+            $stmt->execute();
+            $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            //busca nome do paciente
+            $sql = "SELECT distinct age.*, pac.*, us.nome
+            FROM agenda age
+           INNER JOIN paciente pac ON age.id_paciente = pac.id JOIN usuario us ON us.id = pac.id_usuario  "; 
+            $DB = new DB; 
+            $stmt = $DB->prepare($sql);
+            $stmt->execute();
+            $pacientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            //busca nome do agendador(secretaria)
+            $sql = "SELECT distinct age.*, sec.*, us.nome
+            FROM agenda age
+           INNER JOIN secretaria sec ON age.agendador = sec.id JOIN usuario us ON us.id = sec.id_usuario   "; 
+            $DB = new DB; 
+            $stmt = $DB->prepare($sql);
+            $stmt->execute();
+            $agendadores = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            
+            for ($i = 0; $i < count($agendas); $i++) {
+                $agenda = $agendas[$i];
+                $medico = $medicos[$i];
+                $paciente = $pacientes[$i];
+                $agendador = $agendadores[$i];
+                $arrayAgenda[$i] = array(
+                    'id' => $agenda['id'],
+                    'medico' => $medico['nome'],
+                    'paciente'=> $paciente['nome'],
+                    'horario' => $agenda['horario'],
+                    'agendador' => $agendador['nome'],
+                );
+            }
         
     
             if ($stmt->execute())
@@ -116,7 +158,8 @@ include_once BASE_PATH . "/config.php";
                     return getJsonResponse(false, $msgErro);
                 }
                 else{
-                return json_encode($agendas);   
+                  
+                return json_encode($arrayAgenda);   
                }
             }
             else
