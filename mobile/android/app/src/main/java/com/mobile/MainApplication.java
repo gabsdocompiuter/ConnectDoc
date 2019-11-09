@@ -1,4 +1,4 @@
-package com.mobile;
+package com.connectdoc;
 
 import android.app.Application;
 import android.content.Context;
