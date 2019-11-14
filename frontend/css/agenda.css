@@ -1,0 +1,41 @@
+.navbar{
+    background-color:#2b90F4
+}
+h1.titulo{
+    color:white;
+    font-size: 50px;
+}
+
+.formulario{
+    
+    margin-top: 10px;
+   
+}
+
+input.formulario{
+    width: 10;
+}
+
+.ocultaCampos{
+    display: block;
+}
+.label{
+   
+    color: white;
+    font-size: 15px;
+}
+
+.horizontalSeparatorCadastrar{
+    height: 1px;
+    background-color: #FFF;
+    width: 100%;
+
+    margin-top: -10px;
+    margin-bottom: -10px;
+}  
+
+.backGround{
+    background-color:#2b90F4 ;
+    
+
+}

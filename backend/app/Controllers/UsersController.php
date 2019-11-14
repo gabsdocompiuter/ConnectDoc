@@ -112,6 +112,14 @@ class UsersController {
         
     }
 
+    public function listarMedicos(){
+        echo User::listarMedicos();
+    }
+
+    public function listarPacientes(){
+        echo User::listarPacientes();
+    }
+
 
 
 

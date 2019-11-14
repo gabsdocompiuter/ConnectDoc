@@ -303,5 +303,63 @@ class User {
            return getJsonResponse(false, 'Erro ao editar - ' . $stmt->errorInfo());
         }
     }
+
+    public static function listarMedicos(){
+             $sql = "SELECT nome FROM usuario WHERE tipo = 1"; 
+            $DB = new DB; 
+            $stmt = $DB->prepare($sql);
+
+            if ($stmt->execute())
+            {
+            $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            if(count($medicos) <= 0){
+                return getJsonResponse(false, $msgErro);
+            }
+
+            else{
+            for ($i = 0; $i < count($medicos); $i++) {
+                $medico = $medicos[$i];
+                $arrayAgenda[$i] = array(
+                    'nome' => $medico['nome'],
+                );
+            }     
+                return json_encode($arrayAgenda);   
+               }
+            }
+            else
+            {
+               return getJsonResponse(false, 'Erro ao Listar os Médicos- ' . $stmt->errorInfo());
+            }
+    }
+
+    public static function listarPacientes(){
+        $sql = "SELECT nome FROM usuario WHERE tipo = 3"; 
+       $DB = new DB; 
+       $stmt = $DB->prepare($sql);
+
+       if ($stmt->execute())
+       {
+       $pacientes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+       if(count($pacientes) <= 0){
+           return getJsonResponse(false, $msgErro);
+       }
+
+       else{
+       for ($i = 0; $i < count($pacientes); $i++) {
+           $paciente = $pacientes[$i];
+           $arrayAgenda[$i] = array(
+               'nome' => $paciente['nome'],
+           );
+       }     
+           return json_encode($arrayAgenda);   
+          }
+       }
+       else
+       {
+          return getJsonResponse(false, 'Erro ao Listar os Pacientes- ' . $stmt->errorInfo());
+       }
+}
  
 }

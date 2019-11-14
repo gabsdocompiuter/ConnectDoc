@@ -117,5 +117,17 @@ $app->post('/agenda/edit', function ()
     $AgendaController = new \App\Controllers\AgendaController;
     $AgendaController->update();
 });
+
+$app->get('/users/medicos', function ($request)
+{
+    $UsersController = new \App\Controllers\UsersController;
+    $UsersController->listarMedicos();
+});
+
+$app->get('/users/pacientes', function ($request)
+{
+    $UsersController = new \App\Controllers\UsersController;
+    $UsersController->listarPacientes();
+});
  
 $app->run();
