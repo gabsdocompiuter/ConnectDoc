@@ -15,7 +15,7 @@ include_once BASE_PATH . "/config.php";
             if (empty($id_medico)
             ||  empty($id_paciente)
             ||  empty($horario)
-            ||  empty($agendador)){
+            ){
             
                 return getJsonResponse(false, 'Campos nao informados');
             }
@@ -59,6 +59,7 @@ include_once BASE_PATH . "/config.php";
                     $agenda = $agendas[0];
                  
                         $editAgenda = array(
+                            'id' => $agenda['id'],
                             'id_medico' => $agenda['id_medico'],
                             'id_paciente'=> $agenda['id_paciente'],
                             'horario' => $agenda['horario'],
@@ -83,7 +84,7 @@ include_once BASE_PATH . "/config.php";
             if (empty($id_medico)
             ||  empty($id_paciente)
             ||  empty($horario)
-            ||  empty($agendador)
+           
             ){
                 return getJsonResponse(false, 'Campos nao informados');
             }
@@ -140,13 +141,13 @@ include_once BASE_PATH . "/config.php";
                 $agenda = $agendas[$i];
                 $medico = $medicos[$i];
                 $paciente = $pacientes[$i];
-                $agendador = $agendadores[$i];
+                //$agendador = $agendadores[$i];
                 $arrayAgenda[$i] = array(
                     'id' => $agenda['id'],
                     'medico' => $medico['nome'],
                     'paciente'=> $paciente['nome'],
                     'horario' => $agenda['horario'],
-                    'agendador' => $agendador['nome'],
+                    
                 );
             }
         

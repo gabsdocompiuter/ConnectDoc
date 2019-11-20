@@ -39,7 +39,8 @@ class UsersController {
         $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
         $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : null;
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
-        $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
+        //$senha = password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT);
+        $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null, 12);
  
         echo User::save($nome, $usuario, $email, $tipo, $telefone, $crm, $cpf, $categoria, $senha);
     }
@@ -88,8 +89,9 @@ class UsersController {
         $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
         $email = isset($_POST['email']) ? $_POST['email'] : null;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
+        $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : null;
         //recebe tipo de usuario e insere no BD 1 - Medico e 2- Secretaria
-        if(isset($_POST['tipo'])){
+        /*if(isset($_POST['tipo'])){
             $tipo = $_POST['tipo'];
             if($tipo == 'medico'){
                 $tipo = 1;
@@ -101,12 +103,12 @@ class UsersController {
             }
         }else{
             $tipo = null;
-        }
+        }*/
         $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : null;
         $crm = isset($_POST['crm']) ? $_POST['crm'] : null;
         $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : null;
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
-        $senha = crypt(isset($_POST['senha']) ? $_POST['senha'] : null);
+        $senha = password_hash(isset($_POST['senha']) ? $_POST['senha'] : null, PASSWORD_DEFAULT);
         //$senha = isset($_POST['senha']) ? $_POST['senha'] : null;
         echo User::update($id, $nome, $email, $usuario, $tipo, $telefone, $crm, $cpf, $categoria, $senha);
         

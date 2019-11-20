@@ -14,6 +14,15 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/agenda.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <!-- Minified Bootstrap CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <!-- Minified JS library -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <!-- Minified Bootstrap JS -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+            <link href="css/data/bootstrap-datetimepicker.min.css" rel="stylesheet">
+            <script src="js/data/bootstrap-datetimepicker.min.js"></script>
     
         <title></title>
     
@@ -23,7 +32,7 @@
     <body>
         <div class="backGround">
              <div class="navbar">
-                  <h1 class="titulo">Agenda</h1>
+                  <h1 class="titulo">Editar Agenda</h1>
             </div>
             <div class="horizontalSeparatorCadastrar"></div>
      
@@ -33,17 +42,26 @@
 
     
                 <div class="formulario mt-4">
-                <form  id="agendaArea">
+                <form  action="http://localhost/ConnectDoc/backend/agenda/edit" method="post"  id="editAgendaArea">
+                    <?php 
+                    $json_file = json_decode(file_get_contents(
+                        "http://localhost/ConnectDoc/backend/agenda/edit/22"));
+                       /* $data = $json_file->{'horario'};
+                         $dataFormatada = date("d-m-Y H:i:s",strtotime($data));
+                         $json_file->{'horario'} = $dataFormatada;
+                        */
+                       
+                    ?>
 
                     <label class="label" for="tipo">Médico</label>
                     <br>
                     <select class="btn btn-primary dropdown-toggle" id="id_medico" name="id_medico" >
                     <?php 
-                    $json_file = json_decode(file_get_contents(
+                    $medicos = json_decode(file_get_contents(
                         "http://localhost/ConnectDoc/backend/users/medicos"));
 
-                        for($i = 0; $i < count($json_file); $i++) {
-                            echo "<option>".$json_file[$i]->{'nome'}."</option>";
+                        for($i = 0; $i < count($medicos); $i++) {
+                            echo "<option value='".$medicos[$i]->{'id'}."' >".$medicos[$i]->{'nome'}."</option>";
                             
                         }
                     ?>
@@ -53,20 +71,30 @@
                     <br>
                     <select class="btn btn-primary dropdown-toggle" id="id_paciente" name="id_paciente" >
                     <?php 
-                    $json_file = json_decode(file_get_contents(
+                    $pacientes = json_decode(file_get_contents(
                         "http://localhost/ConnectDoc/backend/users/pacientes"));
 
-                        for($i = 0; $i < count($json_file); $i++) {
-                            echo "<option>".$json_file[$i]->{'nome'}."</option>";
+                        for($i = 0; $i < count($pacientes); $i++) {
+                            echo "<option value='".$pacientes[$i]->{'id'}."'>".$pacientes[$i]->{'nome'}."</option>";
                             
                         }
                     ?>
                     </select>
                     <br>
-                    <label class="label" for="usuario">Horário</label>
-                    <input type="datetime-local" class="form-control" id="horario" name="horario" placeholder="">
+                    <label class="label" for="horario">Horário</label>
                     
                     
+                    <input size="16" type="text" class="form-control" id="horario" name="horario" value="<?php echo $json_file->{'horario'}?>" >
+ 
+                    <script type="text/javascript">
+                    $("#horario").datetimepicker({
+                        format: 'yyyy-mm-dd hh:ii:ss',
+                        autoclose: true
+                    });
+                    </script>
+
+                    <input type="hidden" id="id" name="id" value="<?php echo $json_file->{'id'}?>">
+           
                     <button type="submit" class="btn btn-white mt-4">Enviar</button>
                     </form>
                 </div>

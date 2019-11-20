@@ -93,7 +93,7 @@ class User {
         $msgErro = 'Usuario ou senha invalidos';
 
         if (empty($usuario) || empty($senha))
-        {
+        {   
             return getJsonResponse(false, 'Campos nao informados');
         }
 
@@ -170,7 +170,8 @@ class User {
             else{
             $user = $users[0];
            if($user['tipo'] == 1){
-                $sql = "SELECT id, id_usuario, categoria, crm FROM medicos where id_usuario = :id"; 
+                $sql = "SELECT med.id, med.id_usuario, med.categoria, cat.descricao, med.crm FROM medicos med 
+                join categoria cat where id_usuario = :id AND med.categoria = cat.id"; 
                 $DB = new DB; 
                 $stmt = $DB->prepare($sql);
                 $stmt->bindParam(':id', $id);
@@ -178,19 +179,27 @@ class User {
                 $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 $medico = $medicos[0];
                 $categoria = $medico['categoria'];
+                $descricao = $medico['descricao'];
                 $crm = $medico['crm'];
                 $editUser = array(
+                    'id' => $user['id'],
+                    'tipo' => $user['tipo'],
+                    'tipoNome' => 'Médico',
                     'nome' => $user['nome'],
                     'usuario'=> $user['usuario'],
                     'email' => $user['email'],
                     'telefone' => $user['telefone'],
                     'crm' => $crm,
+                    'descricao' => $descricao,
                     'categoria' => $categoria,
                     'senha' => $user['senha']
     
                 );
             }else if($user['tipo'] == 2){
                 $editUser = array(
+                    'id' => $user['id'],
+                    'tipo' => $user['tipo'],
+                    'tipoNome' => 'Secretária',
                     'nome' => $user['nome'],
                     'usuario'=> $user['usuario'],
                     'email' => $user['email'],
@@ -209,6 +218,9 @@ class User {
                 $paciente = $pacientes[0];
                 $cpf = $paciente['cpf'];
                 $editUser = array(
+                    'id' => $user['id'],
+                    'tipo' => $user['tipo'],
+                    'tipoNome' => 'Paciente',
                     'nome' => $user['nome'],
                     'usuario'=> $user['usuario'],
                     'email' => $user['email'],
@@ -276,8 +288,10 @@ class User {
             $stmt->execute();
             $controlador = true;
             } 
-             //Não precisa verifica se é do tipo secretaria, pois a secretaria não tem nenhum dado a mais, caso seja, insere os dados
-
+            
+             else if($tipo == 2){ 
+                $controlador = true;
+                }
             //verifica se é do tipo paciente, caso seja, insere os dados
             else if($tipo == 3){ 
                 
@@ -305,7 +319,7 @@ class User {
     }
 
     public static function listarMedicos(){
-             $sql = "SELECT nome FROM usuario WHERE tipo = 1"; 
+             $sql = "SELECT distinct med.id, us.nome FROM medicos med JOIN usuario us WHERE us.id = med.id_usuario"; 
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
 
@@ -321,6 +335,7 @@ class User {
             for ($i = 0; $i < count($medicos); $i++) {
                 $medico = $medicos[$i];
                 $arrayAgenda[$i] = array(
+                    'id' => $medico['id'],
                     'nome' => $medico['nome'],
                 );
             }     
@@ -334,7 +349,7 @@ class User {
     }
 
     public static function listarPacientes(){
-        $sql = "SELECT nome FROM usuario WHERE tipo = 3"; 
+        $sql = "SELECT distinct pac.id, us.nome FROM paciente pac JOIN usuario us WHERE us.id = pac.id_usuario"; 
        $DB = new DB; 
        $stmt = $DB->prepare($sql);
 
@@ -350,6 +365,7 @@ class User {
        for ($i = 0; $i < count($pacientes); $i++) {
            $paciente = $pacientes[$i];
            $arrayAgenda[$i] = array(
+               'id' => $paciente['id'],
                'nome' => $paciente['nome'],
            );
        }     

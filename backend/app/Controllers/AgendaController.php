@@ -15,6 +15,11 @@ include_once BASE_PATH . "/config.php";
         // pega os dados do formuário
         $id_medico = isset($_POST['id_medico']) ? $_POST['id_medico'] : null;
         $id_paciente = isset($_POST['id_paciente']) ? $_POST['id_paciente'] : null;
+        /*if(isset($_POST['horario'])){
+            $data = isset($_POST['horario']) ? $_POST['horario'] : null;
+                $dataFormatada = date("Y-m-d H:i:s",strtotime($data));
+            $horario = $dataFormatada;
+        }*/
         $horario = isset($_POST['horario']) ? $_POST['horario'] : null;
         $agendador = isset($_POST['agendador']) ? $_POST['agendador'] : null;
  

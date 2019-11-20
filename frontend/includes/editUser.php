@@ -21,6 +21,7 @@
         function mostrar(elemento){
             var display = document.getElementById(elemento).style.display;
                 if(display == "none"){
+                    
                     document.getElementById(elemento).style.display = 'block';
                 }else{
                     document.getElementById(elemento).style.display = 'none';
@@ -33,7 +34,7 @@
     <body>
         <div class="backGround">
              <div class="navbar">
-                  <h1 class="titulo">Cadastrar</h1>
+                  <h1 class="titulo">Editar Cadastro</h1>
             </div>
             <div class="horizontalSeparatorCadastrar"></div>
      
@@ -41,43 +42,48 @@
             
     
                 <div class="formulario mt-4">
-                <form  id="cadastrarArea">
+                <form  action="http://localhost/ConnectDoc/backend/edit" method="post" id="editCadastrarArea">
+                    <?php 
+                    $json_file = json_decode(file_get_contents(
+                        "http://localhost/ConnectDoc/backend/edit/46"));
 
-                    <label class="label" for="tipo">Tipo de Usuário</label>
-                    <br>
-                    <select  onchange="mostrar('ocultaCampos')" class="btn btn-primary dropdown-toggle" id="tipo" name="tipo" >
-                    <option value="medico">Médico</option>
-                    <option value="secretaria">Secretária</option>
-                    </select>
+                       
+                    ?>
+                    
                     <br>
                     <label class="label" for="nome">Nome Completo</label>
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome">
+                    <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $json_file->{'nome'}?>">
                 
                     <label class="label" for="usuario">Usuário</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Seu Usuário">
+                    <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo $json_file->{'usuario'}?>">
                     
                     <label class="label" for="email">Endereço de email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Seu email">
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo $json_file->{'email'}?>">
 
+                    <?php if ($json_file->{'tipo'} == 1) { ?>
                     <div id="ocultaCampos">
-                    <label class="label" for="tipo" >CRM</label>
-                    <input type="text" class="form-control" id="crm" name="crm" placeholder="CRM">
+                    <label class="label" for="crm" >CRM</label>
+                    <input type="text" class="form-control" id="crm" name="crm" value="<?php echo $json_file->{'crm'}?>">
                 
-                    <label class="label" for="tipo">Categoria</label>
+                    <label class="label" for="categoria">Categoria</label>
                     <br>
-                    <select class="btn btn-primary dropdown-toggle" id="categoria" >
-                    <option value="1">Pediatra</option>
+                    <select class="btn btn-primary dropdown-toggle" id="categoria" name="categoria">
+                    
+                    <option value="<?php echo $json_file->{'categoria'}?>"><?php echo $json_file->{'descricao'}?></option>
                     </select>
+                    <?php } ?>
                     <br>
                     </div>
 
-
                     <label class="label" for="telefone">Telefone</label>
-                    <input type="number" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
+                    <input type="number" class="form-control" id="telefone" name="telefone" value="<?php echo $json_file->{'telefone'}?>">
 
                     <label class="label" for="senha">Senha</label>
                     <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
-                    
+
+                    <input type="hidden" id="tipo" name="tipo" value="<?php echo $json_file->{'tipo'}?>">
+                    <input type="hidden" id="id" name="id" value="<?php echo $json_file->{'id'}?>">
+
                     <button type="submit" class="btn btn-white mt-4">Enviar</button>
                     </form>
                 </div>
