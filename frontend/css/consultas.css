@@ -9,19 +9,33 @@
     background-color: rgb(197, 197, 197);
     width: 400px;
     height: 200px;
-   
+    overflow: auto;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 .container{
 
     background-color: white;
     margin-top: 200px;
+   
+    
 }
-
 
 
 .container2{
     background-color: #2b90F4;
+  
 }
 
 html{

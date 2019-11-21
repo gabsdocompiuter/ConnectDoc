@@ -78,6 +78,47 @@ include_once BASE_PATH . "/config.php";
             
         }
 
+
+        public static function selectConsultas($id){
+            
+
+            $sql = "SELECT age.*, pac.id_usuario, us.nome  FROM agenda age JOIN paciente pac INNER JOIN usuario us on pac.id_usuario = us.id WHERE id_medico = :id"; 
+            $DB = new DB; 
+            $stmt = $DB->prepare($sql);
+            $stmt->bindParam(':id', $id);
+    
+            if ($stmt->execute())
+            {
+                $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                if(count($agendas) <= 0){
+                    return getJsonResponse(false, $msgErro);
+                }
+                else{
+               
+             
+                    for ($i = 0; $i < count($agendas); $i++) {
+                        $agenda = $agendas[$i];
+                        $arrayAgenda[$i] = array(
+                            'id' => $agenda['id'],
+                            'id_medico' => $agenda['id_medico'],
+                            'id_paciente'=> $agenda['id_paciente'],
+                            'nomePaciente'=> $agenda['nome'],
+                            'horario' => $agenda['horario'],
+                            'agendador' => $agenda['agendador'],
+                        );
+                    }
+             
+        
+                return json_encode($arrayAgenda);   
+               }
+            }
+            else
+            {
+               return getJsonResponse(false, 'Não há consultas ' . $stmt->errorInfo());
+            }
+        
+    }
+
         public static function update($id, $id_medico, $id_paciente, $horario, $agendador)
         {
             // validação (bem simples, só pra evitar dados vazios)

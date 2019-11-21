@@ -31,6 +31,11 @@ include_once BASE_PATH . "/config.php";
            echo Agenda::selectEdit($id);
     }
 
+    public function consultas($id)
+    {
+           echo Agenda::selectConsultas($id);
+    }
+
     public function update()
     {
         // pega os dados do formuário

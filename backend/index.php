@@ -118,6 +118,16 @@ $app->post('/agenda/edit', function ()
     $AgendaController->update();
 });
 
+//tras as consultas agendadas de cada medico
+$app->get('/agenda/consultas/{id}', function ($request)
+{
+    // pega o ID da URL
+    $id = $request->getAttribute('id');
+ 
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->consultas($id);
+});
+
 $app->get('/users/medicos', function ($request)
 {
     $UsersController = new \App\Controllers\UsersController;

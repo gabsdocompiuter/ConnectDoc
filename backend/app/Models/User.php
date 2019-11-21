@@ -319,7 +319,7 @@ class User {
     }
 
     public static function listarMedicos(){
-             $sql = "SELECT distinct med.id, us.nome FROM medicos med JOIN usuario us WHERE us.id = med.id_usuario"; 
+             $sql = "SELECT distinct med.id, us.nome, cat.descricao FROM medicos med JOIN categoria cat ON med.categoria = cat.id inner join usuario us WHERE us.id = med.id_usuario"; 
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
 
@@ -337,6 +337,7 @@ class User {
                 $arrayAgenda[$i] = array(
                     'id' => $medico['id'],
                     'nome' => $medico['nome'],
+                    'descricao' => $medico['descricao'],
                 );
             }     
                 return json_encode($arrayAgenda);   
