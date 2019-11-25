@@ -9,6 +9,6 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <?php require_once 'includes/menu.html' ?>
+        <?php require_once 'includes/consultas.php' ?>
     </body>
 </html>

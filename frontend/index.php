@@ -16,7 +16,7 @@
 
         //Se tentar abrir uma página não existente, vai pro 404
         if(paginaValida($p)) {
-            include('dash.php');
+            include('includes/dash.php');
             return;
         }
         else if($p == 'logout'){
