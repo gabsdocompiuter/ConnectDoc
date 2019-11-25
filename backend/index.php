@@ -138,5 +138,13 @@ $app->get('/users/pacientes', function ($request)
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->listarPacientes();
 });
+
+$app->get('/dias/{mes}', function ($request)
+{
+    $mes = $request->getAttribute('mes');
+
+    $CalendarioController = new \App\Controllers\CalendarioController;
+    $CalendarioController->listarDias($mes);
+});
  
 $app->run();
