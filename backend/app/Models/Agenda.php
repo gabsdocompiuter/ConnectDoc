@@ -80,9 +80,29 @@ include_once BASE_PATH . "/config.php";
 
 
         public static function selectConsultas($id){
-            
-
-            $sql = "SELECT age.*, pac.id_usuario, us.nome  FROM agenda age JOIN paciente pac INNER JOIN usuario us on pac.id_usuario = us.id WHERE id_medico = :id"; 
+            $sql = "SELECT TIME(horario) AS horario
+                         , NULL AS nome
+                       FROM agendaPadrao
+                       WHERE TIME(horario) NOT IN (SELECT TIME(horario)
+                                                      FROM agenda
+                                                      WHERE id_medico = :id
+                                                        AND DATE(horario) = CURDATE())
+                        
+                    UNION
+                       SELECT TIME(A.horario) AS horario
+                            , U.nome AS nome
+                          FROM agenda AS A
+                        
+                          INNER JOIN paciente AS P
+                             ON A.id_paciente = P.id
+                            
+                          INNER JOIN usuario AS U
+                             ON P.id_usuario = U.id
+                            
+                          WHERE A.id_medico = :id
+                            AND DATE(A.horario) = CURDATE()
+                            
+                        ORDER BY horario"; 
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
             $stmt->bindParam(':id', $id);
@@ -91,20 +111,14 @@ include_once BASE_PATH . "/config.php";
             {
                 $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
                 if(count($agendas) <= 0){
-                    return getJsonResponse(false, $msgErro);
+                    return getJsonResponse(false, 'Erro ao consultar');
                 }
                 else{
-               
-             
                     for ($i = 0; $i < count($agendas); $i++) {
                         $agenda = $agendas[$i];
                         $arrayAgenda[$i] = array(
-                            'id' => $agenda['id'],
-                            'id_medico' => $agenda['id_medico'],
-                            'id_paciente'=> $agenda['id_paciente'],
                             'nomePaciente'=> $agenda['nome'],
-                            'horario' => $agenda['horario'],
-                            'agendador' => $agenda['agendador'],
+                            'horario' => $agenda['horario']
                         );
                     }
              
