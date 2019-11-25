@@ -36,7 +36,6 @@ $app->post('/cadastrar', function ()
 
 $app->get('/login', function ()
 {
-    
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->loginHome();
     
