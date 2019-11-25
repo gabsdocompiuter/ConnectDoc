@@ -20,7 +20,7 @@
         <?php include 'menu.php' ?>
         
         <div class="container">
-            <!-- <div class="calendario">
+            <div class="calendario">
                 <ul class="meses">
                     <li><a href="#">Jan</a></li>
                     <li><a href="#">Fev</a></li>
@@ -35,16 +35,15 @@
                     <li><a href="#">Nov</a></li>
                     <li><a href="#">Dez</a></li>
                 </ul>
-                <ul>
-                    <?php
-                    // $json_file = json_decode(file_get_contents("http://localhost/backend/users/medicos"));
-                    ?>
-                <li><a href="#"><?= date("F") ?></a></li>
-                <li><a href="#">Jul</a></li>
-                <li><a href="#">Ago</a></li>
-                <li><a href="#">Set</a></li>
+                <ul class="dias">
+                <?php
+                    $json_file = json_decode(file_get_contents("http://localhost/backend/dias/fev"));
+                    for($i = 0; $i < count($json_file); $i++) {
+                        echo "<li><a href='#'>" . $json_file[$i] . "</a></li>";
+                    }
+                ?>
                 </ul>
-            </div> -->
+            </div>
 
             <?php
                 $json_file = json_decode(file_get_contents("http://localhost/backend/users/medicos"));
