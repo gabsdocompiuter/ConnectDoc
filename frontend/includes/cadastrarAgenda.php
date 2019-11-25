@@ -4,16 +4,14 @@
     <head>
         <meta charset="utf-8">
         
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/agenda.css" />
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        
+        <link rel="stylesheet" type="text/css" href="css/agendaNovo.css" />
+      
+       
+
           <!-- Minified Bootstrap CSS -->
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <!-- Minified JS library -->
@@ -30,18 +28,26 @@
     </head>
  
     <body>
-        <div class="backGround">
-             <div class="navbar">
-                  <h1 class="titulo">Agenda</h1>
+    <div class="backGround">
+        <div class="header">
+        <div class='menuLine'>
+            <div class="menuLogo">
+                <img src="assets/logo_white.png" alt="Logo ConnectDoc"/>
             </div>
-            <div class="horizontalSeparatorCadastrar"></div>
+            <div class="menuBottons">
+                <h1> Agenda</h1>
+            </div>
+        </div>
+        <div class="horizontalSeparatorCadastrar"></div>
+    </div>
+           
      
             
            
 
-
+    <div class="containerDiv">
     
-                <div class="formulario mt-4">
+                <div class="formulario" >
                 <form  action="http://localhost/ConnectDoc/backend/agenda/cadastrar" method="post"  id="agendaArea">
 
                     <label class="label" for="tipo">Médico</label>
@@ -58,7 +64,8 @@
                     ?>
                     </select>
                     <br>
-                    <label class="label" for="nome">Paciente</label>
+                    <br>
+                    <label class="label mt-4" for="nome">Paciente</label>
                     <br>
                     <select class="btn btn-primary dropdown-toggle" id="id_paciente" name="id_paciente" >
                     <?php 
@@ -72,8 +79,10 @@
                     ?>
                     </select>
                     <br>
+                    <br>
+                    
                     <label class="label" for="usuario">Horário</label>
-                    <input size="16" type="text" class="form-control" id="horario" name="horario" >
+                    <input size="16"  class="form-control" id="horario" name="horario" >
  
                     <script type="text/javascript">
                     $("#horario").datetimepicker({
@@ -83,7 +92,7 @@
                     </script>
                     
                     
-                    <button type="submit" class="btn btn-white mt-4">Enviar</button>
+                    <button type="submit" class="btn btn-white">Enviar</button>
                     </form>
                 </div>
 
@@ -95,7 +104,7 @@
                 
             </div>
 
-            
+     </div>   
     </body>
 </html>
 

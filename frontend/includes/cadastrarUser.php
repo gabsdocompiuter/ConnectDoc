@@ -40,29 +40,31 @@
                
             
     
-                <div class="formulario mt-4">
+                <div class="formulario">
                 <form  action="http://localhost/ConnectDoc/backend/cadastrar" method="post" id="cadastrarArea">
-
+                    <br>
                     <label class="label" for="tipo">Tipo de Usuário</label>
                     <br>
+                    
                     <select  onchange="mostrar('ocultaCampos')" class="btn btn-primary dropdown-toggle" id="tipo" name="tipo" >
                     <option value="medico">Médico</option>
                     <option value="secretaria">Secretária</option>
                     </select>
                     <br>
+                    <br>
                     <label class="label" for="nome">Nome Completo</label>
                     <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome">
-                
+                    <br>
                     <label class="label" for="usuario">Usuário</label>
                     <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Seu Usuário">
-                    
+                    <br>
                     <label class="label" for="email">Endereço de email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Seu email">
-
+                    <br>
                     <div id="ocultaCampos">
                     <label class="label" for="crm" >CRM</label>
                     <input type="text" class="form-control" id="crm" name="crm" placeholder="CRM">
-                
+                    <br>
                     <label class="label" for="categoria">Categoria</label>
                     <br>
                     <select class="btn btn-primary dropdown-toggle" id="categoria" name="categoria">
@@ -71,10 +73,10 @@
                     <br>
                     </div>
 
-
+                    <br>
                     <label class="label" for="telefone">Telefone</label>
                     <input type="number" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
-
+                    <br>
                     <label class="label" for="senha">Senha</label>
                     <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
                     
