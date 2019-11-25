@@ -119,6 +119,11 @@ class User {
                         'usuario' => $user['usuario'],
                         'id' => $user['id']
                     );
+
+                    session_abort();
+                    session_start();
+                    $_SESSION['user'] = $user['id'];
+                    
                     return json_encode($responseUser);
                 }
                 else return getJsonResponse(false, $msgErro);
