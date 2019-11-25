@@ -8,15 +8,17 @@
     session_start();
     $usuarioLogado = ISSET($_SESSION['user']);
 
+    include('includes/home.php');
+    exit();
     if($usuarioLogado){
         //Se tentar logar, manda pra home
         if($p == "login"){
-            header("Location: home");
+            header("Location: dash");
         }
 
         //Se tentar abrir uma página não existente, vai pro 404
         if(paginaValida($p)) {
-            include('includes/dash.php');
+            include("includes/$p.php");
             return;
         }
         else if($p == 'logout'){
