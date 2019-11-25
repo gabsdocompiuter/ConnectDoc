@@ -12,30 +12,13 @@
     overflow: auto;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .container{
-
     background-color: white;
-    margin-top: 200px;
-   
-    
+    margin-top: 200px;   
 }
-
 
 .container2{
     background-color: #2b90F4;
-  
 }
 
 html{
@@ -46,4 +29,3 @@ html{
     height: 200px;
     width: 200px;
 }
-
