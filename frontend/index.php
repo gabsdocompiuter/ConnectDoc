@@ -8,8 +8,6 @@
     session_start();
     $usuarioLogado = ISSET($_SESSION['user']);
 
-    include('includes/home.php');
-    exit();
     if($usuarioLogado){
         //Se tentar logar, manda pra home
         if($p == "login"){
