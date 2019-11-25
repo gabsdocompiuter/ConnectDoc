@@ -1,31 +1,105 @@
-.medicos{
-    background-color: rgb(197, 197, 197);
-    width: 400px;
-    height: 200px;
-    margin-left: 150px;
-}
+html{
+    background-color: #2b90F4;
 
-.agenda{
-    background-color: rgb(197, 197, 197);
-    width: 400px;
-    height: 200px;
-    overflow: auto;
+    font-family: sans-serif;
 }
 
 .container{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+
     background-color: white;
-    margin-top: 200px;   
+
+    border-radius: 7px;
+    /* padding: 15px; */
 }
 
-.container2{
-    background-color: #2b90F4;
+.calendario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
 }
 
-html{
-    background-color: #2b90F4;
+.calendario .meses{
+    display: flex;
+    justify-content: center;
+
+    padding: 0px;
+    margin: 0px;
+    
+    list-style: none;
 }
 
-.perfilMedico{
+.calendario .meses li{
+    display: inline;
+    margin: 15px;
+}
+
+.medico{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+.medico.info, .medico.agenda{
+    justify-content: start;
+    background-color: rgba(43, 144, 244, 0.2);
+}
+
+.medico.info{
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    
+    width: 400px;
     height: 200px;
-    width: 200px;
+
+    border-right: 2px;
+    border-right-style: solid;
+    border-right-color: white;
+}
+
+.medico.info h1, h3{
+    font-family: 'Arial';
+    font-weight: normal;
+    margin: 0;
+}
+
+.medico.agenda{
+    padding: 5px;
+
+    width: 400px;
+
+    max-height: 200px;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.medico.agenda .linha{
+    display: flex;
+
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.medico.agenda .linha a{
+    text-decoration: none;
+    color: #2b90F4;
+}
+
+.medico.agenda .linha .horario.titulo, .paciente.titulo{
+    font-weight: bold;
+}
+
+.medico.agenda .linha .horario{
+    width: 75px;
 }

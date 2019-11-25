@@ -1,7 +1,7 @@
 <div class="menuContainer">
     <div class='menuLine'>
         <div class="menuLogo">
-            <img src="assets/logo_white.png" alt="Logo ConnectDoc"/>
+            <img src="/frontend/assets/logo_white.png" alt="Logo ConnectDoc"/>
         </div>
         <div class="menuBottons">
             <ul>
