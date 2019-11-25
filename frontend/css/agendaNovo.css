@@ -1,0 +1,80 @@
+.header{
+    background-color:#2b90F4;
+    width: 100%;
+
+}
+
+.header h1{
+    margin-right: 600px;
+    color:white;
+    font-size: 50px;
+}
+
+.formulario{
+    
+    margin-top: 10px;
+   
+}
+
+.label{
+   
+    color: white;
+    font-size: 15px;
+}
+
+.horizontalSeparatorCadastrar{
+    height: 1px;
+    background-color: #FFF;
+    width: 100%;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}  
+
+html{
+    background-color:#2b90F4 ;
+}
+.formulario{
+    background-color:#2b90F4 ;
+}
+
+.menuLogo img{
+    width: 150px;
+    margin:20px
+}
+
+.menuLine{
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.formulario input{
+    width: 200px;
+}
+
+.formulario select{
+    width: 200px;
+  
+}
+
+.formulario label{
+    font-size: 15px;
+    margin-top: 100px;
+}
+
+.containerDiv{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
+}
+
+.backGround{
+    background-color:#2b90F4 ;
+}
+
+.btn{
+    margin-top: 10px;
+}
