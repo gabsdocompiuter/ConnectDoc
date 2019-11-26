@@ -21,28 +21,9 @@
         
         <div class="container">
             <div class="calendario">
-                <ul class="meses">
-                    <li><a href="#">Jan</a></li>
-                    <li><a href="#">Fev</a></li>
-                    <li><a href="#">Mar</a></li>
-                    <li><a href="#">Abr</a></li>
-                    <li><a href="#">Mai</a></li>
-                    <li><a href="#">Jun</a></li>
-                    <li><a href="#">Jul</a></li>
-                    <li><a href="#">Ago</a></li>
-                    <li><a href="#">Set</a></li>
-                    <li><a href="#">Out</a></li>
-                    <li><a href="#">Nov</a></li>
-                    <li><a href="#">Dez</a></li>
-                </ul>
-                <ul class="dias">
-                <?php
-                    $json_file = json_decode(file_get_contents("http://localhost/backend/dias/fev"));
-                    for($i = 0; $i < count($json_file); $i++) {
-                        echo "<li><a href='#'>" . $json_file[$i] . "</a></li>";
-                    }
-                ?>
-                </ul>
+                <ul id="meses_lista" class="meses"></ul>
+
+                <ul id="dias_lista" class="dias"></ul>
             </div>
 
             <?php
@@ -88,5 +69,6 @@
                 }
             ?>
         </div>
+        <script src="frontend/js/calendario.js"></script>
     </body>
 </html>
