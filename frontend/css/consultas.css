@@ -21,6 +21,9 @@ html{
 
     width: 99%;
 
+    min-height: 50px;
+    max-height: 50px;
+
     padding: 7px;
 
     border-radius: 7px 7px 0 0;
@@ -51,6 +54,13 @@ html{
 .calendario li{
     color: white;
     cursor: pointer;
+}
+
+.calendario .selecionado {
+    font-weight: bold;
+    
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
 
 .medico{
