@@ -74,7 +74,7 @@ function montaCalendario(){
                         selecionado.dia = dia;
     
                         montaDias(mes, dia);
-                        // alert(dia);
+                        montaAgenda();
                     }
     
                     const item = document.createElement('li');
@@ -98,6 +98,9 @@ function montaCalendario(){
 }
 
 function montaAgenda(){
+    const medicos = document.getElementById('medicos');
+    medicos.innerHTML = '';
+
     function montaMedicos(){
         const endpoint = `http://localhost/backend/users/medicos`;
         fetch(endpoint)
@@ -139,8 +142,7 @@ function montaAgenda(){
                     divMedico.appendChild(medInfo);
                     divMedico.appendChild(medAgenda);
 
-                    const container = document.getElementById('container');
-                    container.appendChild(divMedico);
+                    medicos.appendChild(divMedico);
 
                 })
             });
@@ -148,7 +150,7 @@ function montaAgenda(){
 
     function leHorarios(medId, divAgenda){
         const endpoint = `http://localhost/backend/agenda/consultas/${selecionado.data()}/${medId}`;
-        // console.log(endpoint);
+        console.log(endpoint);
         
         fetch(endpoint)
             .then(response => response.json())
@@ -160,7 +162,7 @@ function montaAgenda(){
 
                     const paciente = document.createElement('div');
                     paciente.setAttribute('class', 'paciente');
-                    paciente.innerText = agendamento.paciente ? agendamento.paciente : '—';
+                    paciente.innerText = agendamento.nomePaciente ? agendamento.nomePaciente : '—';
 
                     const linha = document.createElement('div');
                     linha.setAttribute('class', 'linha');

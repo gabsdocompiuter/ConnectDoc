@@ -21,6 +21,7 @@
                 <ul id="dias_lista" class="dias"></ul>
             </div>
 
+            <div id="medicos"></div>
             
         </div>
         <script src="frontend/js/calendario.js"></script>
