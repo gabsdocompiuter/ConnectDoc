@@ -118,8 +118,7 @@ $app->post('/agenda/edit', function ()
 });
 
 //tras as consultas agendadas de cada medico
-$app->get('/agenda/consultas/{id}', function ($request)
-{
+$app->get('/agenda/consultas/{id}', function ($request){
     // pega o ID da URL
     $id = $request->getAttribute('id');
     
@@ -129,8 +128,7 @@ $app->get('/agenda/consultas/{id}', function ($request)
     $AgendaController->consultas($id, $dia, $mes);
 });
 
-$app->get('/agenda/consultas/{data}/{medico}', function ($request)
-{
+$app->get('/agenda/consultas/{data}/{medico}', function ($request){
     // pega o ID da URL
     $medico = $request->getAttribute('medico');
     $data =  $request->getAttribute('data');

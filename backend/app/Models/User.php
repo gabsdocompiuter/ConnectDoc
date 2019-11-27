@@ -324,34 +324,41 @@ class User {
     }
 
     public static function listarMedicos(){
-             $sql = "SELECT distinct med.id, us.nome, cat.descricao FROM medicos med JOIN categoria cat ON med.categoria = cat.id inner join usuario us WHERE us.id = med.id_usuario"; 
+        $sql = "SELECT med.id AS medId
+                     , us.nome AS nome
+                     , cat.descricao AS descricao
+
+                   FROM medicos AS med
+
+                   INNER JOIN categoria AS cat
+                      ON med.categoria = cat.id
+
+                   INNER JOIN usuario us
+                      ON us.id = med.id_usuario";
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
 
             if ($stmt->execute())
             {
-            $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                $medicos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-            if(count($medicos) <= 0){
-                return getJsonResponse(false, $msgErro);
-            }
-
+                if(count($medicos) <= 0){
+                    return getJsonResponse(false, 'Houve um erro');
+                }
             else{
-            for ($i = 0; $i < count($medicos); $i++) {
-                $medico = $medicos[$i];
-                $arrayAgenda[$i] = array(
-                    'id' => $medico['id'],
-                    'nome' => $medico['nome'],
-                    'descricao' => $medico['descricao'],
-                );
-            }     
+                for ($i = 0; $i < count($medicos); $i++) {
+                    $medico = $medicos[$i];
+                    $arrayAgenda[$i] = array(
+                        'id' => $medico['medId'],
+                        'nome' => $medico['nome'],
+                        'descricao' => $medico['descricao'],
+                    );
+                }
                 return json_encode($arrayAgenda);   
-               }
             }
-            else
-            {
-               return getJsonResponse(false, 'Erro ao Listar os Médicos- ' . $stmt->errorInfo());
-            }
+        }
+        else return getJsonResponse(false, 'Erro ao listar médicos');
+            
     }
 
     public static function listarPacientes(){
