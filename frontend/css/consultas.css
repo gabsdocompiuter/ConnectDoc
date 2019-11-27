@@ -123,8 +123,13 @@ html{
 
 .medico.agenda .linha .horario.titulo, .paciente.titulo{
     font-weight: bold;
+    color: black;
+    cursor: text;
 }
 
 .medico.agenda .linha .horario{
     width: 75px;
+
+    color: #2b90F4;
+    cursor: pointer;
 }
