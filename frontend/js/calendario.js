@@ -237,6 +237,28 @@ function montaAgenda(){
                         const container = document.getElementById('container');
                         container.appendChild(modal);
 
+                        buttonSave.onclick = () => {
+                            const hora = agendamento.horario;
+                            const horaLimpa = hora.substr(0, 2) + hora.substr(3, 2) + '00';
+                            const horario = selecionado.data() + horaLimpa;
+
+                            const formData = new FormData();
+                            formData.append('medico', medico.id)
+                            formData.append('paciente', inputNome.value)
+                            formData.append('horario', horario)
+
+                            callAction('backend/agenda/cadastrar', formData, (response) => {
+                                if(response.success){
+                                    modal.style.display = "none";
+                                    montaAgenda();
+                                }
+                                else{
+                                    console.error(`Erro: ${response.message}`);
+                                }
+                            });
+
+                        }
+
                         closeButton.onclick = () => {
                             modal.style.display = "none";
                         }
