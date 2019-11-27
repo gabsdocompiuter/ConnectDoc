@@ -31,9 +31,50 @@ include_once BASE_PATH . "/config.php";
            echo Agenda::selectEdit($id);
     }
 
-    public function consultas($id)
+    public function consultas($id, $dia, $mes)
     {
-           echo Agenda::selectConsultas($id);
+        switch(strtolower($mes)){
+           case 'jan':
+                $mes = 1;
+            break;
+            case 'fev':
+                $mes = 2;
+            break;
+            case 'mar':
+                $mes = 3;
+            break;
+            case 'abr':
+                $mes = 4;
+            break;
+            case 'mai':
+                $mes = 5;
+            break;
+            case 'jun':
+                $mes = 6;
+            break;
+            case 'jul':
+                $mes = 7;
+            break;
+            case 'ago':
+                $mes = 8;
+            break;
+            case 'set':
+                $mes = 9;
+            break;
+            case 'out':
+                $mes = 10;
+            break;
+            case 'nov':
+                $mes = 11;
+            break;
+            case 'dez':
+                $mes = 12;
+            break;
+        }
+        $ano = date('Y');
+    
+          echo Agenda::selectConsultas($id, $dia, $mes, $ano);
+          
     }
 
     public function update()

@@ -122,10 +122,23 @@ $app->get('/agenda/consultas/{id}', function ($request)
 {
     // pega o ID da URL
     $id = $request->getAttribute('id');
- 
+    
     $AgendaController = new \App\Controllers\AgendaController;
-    $AgendaController->consultas($id);
+    $dia= null;
+    $mes=null;
+    $AgendaController->consultas($id, $dia, $mes);
 });
+
+$app->get('/agenda/consultas/{id}/dia/{dia}/mes/{mes}', function ($request)
+{
+    // pega o ID da URL
+    $id = $request->getAttribute('id');
+    $dia =  $request->getAttribute('dia');
+    $mes =  $request->getAttribute('mes');
+    $AgendaController = new \App\Controllers\AgendaController;
+    $AgendaController->consultas($id,$dia,$mes);
+});
+
 
 $app->get('/users/medicos', function ($request)
 {

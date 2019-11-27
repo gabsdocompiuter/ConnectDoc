@@ -45,7 +45,6 @@ function montaMeses(mesSelecionado){
 function montaDias(mes){
     const lista = document.getElementById('dias_lista');
     lista.innerHTML = '';
-
     const endpoint = `http://localhost/backend/dias/${mes}`;
     fetch(endpoint)
         .then(response => response.json())
