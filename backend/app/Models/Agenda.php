@@ -79,33 +79,36 @@ include_once BASE_PATH . "/config.php";
         }
 
 
-        public static function selectConsultas($id){
+        public static function selectConsultas($id, $dia, $mes, $ano){
             $sql = "SELECT TIME(horario) AS horario
-                         , NULL AS nome
-                       FROM agendaPadrao
-                       WHERE TIME(horario) NOT IN (SELECT TIME(horario)
-                                                      FROM agenda
-                                                      WHERE id_medico = :id
-                                                        AND DATE(horario) = CURDATE())
-                        
-                    UNION
-                       SELECT TIME(A.horario) AS horario
-                            , U.nome AS nome
-                          FROM agenda AS A
-                        
-                          INNER JOIN paciente AS P
-                             ON A.id_paciente = P.id
-                            
-                          INNER JOIN usuario AS U
-                             ON P.id_usuario = U.id
-                            
-                          WHERE A.id_medico = :id
-                            AND DATE(A.horario) = CURDATE()
-                            
-                        ORDER BY horario"; 
+            , NULL AS nome
+          FROM agendaPadrao
+          WHERE TIME(horario) NOT IN (SELECT TIME(horario)
+                                         FROM agenda
+                                         WHERE id_medico = :id
+                                           AND RIGHT(date(horario),2) = :dia AND Left(RIGHT(date(horario),5),2) = :mes AND LEFT(DATE(horario),4) = :ano)
+           
+       UNION
+          SELECT TIME(A.horario) AS horario
+               , U.nome AS nome
+             FROM agenda AS A
+           
+             INNER JOIN paciente AS P
+                ON A.id_paciente = P.id
+               
+             INNER JOIN usuario AS U
+                ON P.id_usuario = U.id
+               
+             WHERE A.id_medico = :id
+               AND RIGHT(date(horario),2) = :dia AND Left(RIGHT(date(horario),5),2) = :mes AND LEFT(DATE(horario),4) = :ano
+               
+           ORDER BY horario"; 
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
             $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':dia',$dia);
+            $stmt->bindParam(':ano',$ano);
+            $stmt->bindParam(':mes',$mes);
     
             if ($stmt->execute())
             {

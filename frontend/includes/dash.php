@@ -43,8 +43,13 @@
 
                             <?php
                                 $medId = $json_file[$i]->{'id'};
-                                $agenda = json_decode(file_get_contents("http://localhost/backend/agenda/consultas/$medId"));
-
+                                if(isset($_GET['dia'])){
+                                $dia = $_GET['dia'];
+                                $mes = $_GET['mes'];
+                                $agenda = json_decode(file_get_contents("http://localhost/backend/agenda/consultas/$medId/dia/$dia/mes/$mes"));
+                                }else{
+                                    $agenda = json_decode(file_get_contents("http://localhost/backend/agenda/consultas/$medId"));
+                                }
                                 for($x = 0; $x < count($agenda); $x++) {
                                     $horario = $agenda[$x]->{'horario'};
                                     $horario = date("H:i",strtotime($horario));

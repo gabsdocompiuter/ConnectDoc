@@ -29,14 +29,14 @@ function montaMeses(){
 function montaDias(mes){
     const lista = document.getElementById('dias_lista');
     lista.innerHTML = '';
-
     const endpoint = `http://localhost/backend/dias/${mes}`;
     fetch(endpoint)
         .then(response => response.json())
         .then(response => {
             response.map(dia => {
                 function atualizaAgenda(){
-                    alert(dia);
+                    window.location = "http://localhost/dash?dia="+dia+"&&mes="+mes;
+                    //alert(dia);
                 }
 
                 const item = document.createElement('li');
