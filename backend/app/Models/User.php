@@ -323,6 +323,34 @@ class User {
         }
     }
 
+    public static function getUserByName($user){
+        $sql = "SELECT U.usuario AS usuario
+                     , U.nome    AS nome
+                     , U.email   AS email
+
+                   FROM usuario AS U
+                   WHERE U.usuario = :user";
+
+        $DB = new DB;
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':user', $user);
+
+        if ($stmt->execute()){
+            $row = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($row) > 0){
+                $row = $row[0];
+                
+                $array = array(
+                    'usuario' => $row['usuario'],
+                    'nome' => $row['nome'],
+                    'email' => $row['email']
+                );
+                return json_encode($array);
+            }
+            else return getJsonResponse(false, 'Usuário não encontrado');
+        }
+    }
+
     public static function listarMedicos(){
         $sql = "SELECT med.id AS medId
                      , us.nome AS nome
@@ -335,6 +363,7 @@ class User {
 
                    INNER JOIN usuario us
                       ON us.id = med.id_usuario";
+
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
 

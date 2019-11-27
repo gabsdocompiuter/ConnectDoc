@@ -77,4 +77,14 @@ html {
 
     margin-top: 10px;
     margin-bottom: 10px;
-}   
+}
+
+.container{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+
+    background-color: white;
+
+    border-radius: 7px;
+}

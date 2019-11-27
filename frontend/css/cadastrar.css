@@ -1,39 +1,78 @@
-.navbar{
-    background-color:#2b90F4
-}
-h1.titulo{
-    color:white;
-    font-size: 50px;
+.titulo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 99%;
+
+    min-height: 50px;
+    max-height: 50px;
+
+    padding: 7px;
+
+    border-radius: 7px 7px 0 0;
+    background-color: rgba(43, 144, 244, 0.7);
 }
 
-.formulario{
-    
-    margin-top: 10px;
-   
+.buttons{
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.ocultaCampos{
-    display: block;
+.buttons p{
+    height: 20px;
+    color: red;
 }
-.label{
-   
+
+.oculto{
+    display: none;
+}
+
+.titulo h1{
     color: white;
-    font-size: 15px;
+    font-weight: normal;
 }
 
-.horizontalSeparatorCadastrar{
-    height: 1px;
-    background-color: #FFF;
-    width: 100%;
+.content{
+    margin: 10px;
+}
+.form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 
-    margin-top: -10px;
-    margin-bottom: -10px;
-}  
-
-.backGround{
-    background-color:#2b90F4 ;
-    
-
+    margin-top: 10px;
 }
 
+.form h2{
+    font-weight: normal;
+    text-align: center;
+}
 
+.info{
+    margin-top: 15px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.info .label{
+    width: 75px;
+}
+
+.info input{
+    width: 200px;
+    height: 20px;
+
+    font-size: 12pt;
+}
+
+.tipoCadastro{
+    display: flex;
+    flex-direction: row;
+}

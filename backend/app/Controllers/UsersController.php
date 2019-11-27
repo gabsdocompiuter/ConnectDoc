@@ -114,6 +114,10 @@ class UsersController {
         
     }
 
+    public function getUserByName($user){
+        echo User::getUserByName($user);
+    }
+
     public function listarMedicos(){
         echo User::listarMedicos();
     }
@@ -121,11 +125,4 @@ class UsersController {
     public function listarPacientes(){
         echo User::listarPacientes();
     }
-
-
-
-
-
-    
-
 }

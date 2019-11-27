@@ -132,6 +132,12 @@ $app->get('/agenda/consultas/{data}/{medico}', function ($request){
     $AgendaController->consultas($data, $medico);
 });
 
+$app->get('/user/{user}', function ($request){
+    $user = $request->getAttribute('user');
+
+    $UsersController = new \App\Controllers\UsersController;
+    $UsersController->getUserByName($user);
+});
 
 $app->get('/users/medicos', function ($request)
 {
