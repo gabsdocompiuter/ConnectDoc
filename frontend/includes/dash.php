@@ -6,8 +6,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="frontend/css/style.css">
-        <link rel="stylesheet" type="text/css" href="frontend/css/consultas.css" />
+        <link rel="stylesheet" type="text/css" href="frontend/css/style.css">
+        <link rel="stylesheet" type="text/css" href="frontend/css/modal.css">
+        <link rel="stylesheet" type="text/css" href="frontend/css/consultas.css">
+        
         <title>ConnectDoc</title>
     </head>
 
