@@ -165,7 +165,6 @@ function montaAgenda(){
 
     function leHorarios(medico, divAgenda){
         const endpoint = `http://localhost/backend/agenda/consultas/${selecionado.data()}/${medico.id}`;
-        console.log(endpoint);
         
         fetch(endpoint)
             .then(response => response.json())
