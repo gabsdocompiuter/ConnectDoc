@@ -159,6 +159,7 @@ function montaAgenda(){
                     const horario = document.createElement('div');
                     horario.setAttribute('class', 'horario');
                     horario.innerText = agendamento.horario;
+                    horario.onclick = abrirModal;
 
                     const paciente = document.createElement('div');
                     paciente.setAttribute('class', 'paciente');
@@ -170,6 +171,38 @@ function montaAgenda(){
                     linha.appendChild(paciente);
 
                     divAgenda.appendChild(linha);
+
+                    function abrirModal(){
+                        const closeButton = document.createElement('span');
+                        closeButton.setAttribute('class', 'close');
+                        closeButton.innerText = 'x';
+
+                        const content = document.createElement('p');
+                        content.innerText = 'isso é um teste que não vai funcionar';
+
+                        const modalContent = document.createElement('div');
+                        modalContent.setAttribute('class', 'modal-content');
+                        modalContent.appendChild(closeButton);
+                        modalContent.appendChild(content);
+
+                        const modal = document.createElement('div');
+                        modal.setAttribute('id', 'modal');
+                        modal.setAttribute('class', 'modal');
+                        modal.appendChild(modalContent);
+                        
+                        const container = document.getElementById('container');
+                        container.appendChild(modal);
+
+                        closeButton.onclick = () => {
+                            modal.style.display = "none";
+                        }
+
+                        window.onclick = event => {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
                 })
             });
     }
