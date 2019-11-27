@@ -67,8 +67,8 @@
                         <h2>Dados Médico</h2>
 
                         <div class='info'>
-                            <div class='label'>Nome</div>
-                            <input placeholder='Informe o nome' name='nome'>
+                            <div class='label'>Categoria</div>
+                            <select placeholder='Informe o nome' name='categoria' id='selectCategoria'></select>
                         </div>
 
                         <div class='info'>
