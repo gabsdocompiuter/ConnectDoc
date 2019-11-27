@@ -2,135 +2,112 @@
 use App\DB; 
 include_once BASE_PATH . "/config.php";
 
-    class Agenda {
-
-        public static function save(
-            $id_medico,
-            $id_paciente,
-            $horario,
-            $agendador
-            ){
-            
-             // validação (bem simples, só pra evitar dados vazios)
-            if (empty($id_medico)
-            ||  empty($id_paciente)
-            ||  empty($horario)
-            ){
-            
-                return getJsonResponse(false, 'Campos nao informados');
-            }
-
-       
-                
-            
-              
-            // insere no banco
-            $DB = new DB;
-            //insere na tabela usuario    
-            $sql = "INSERT INTO agenda(id_medico, id_paciente, horario, agendador) VALUES(:id_medico, :id_paciente, :horario, :agendador)";
-            $stmt = $DB->prepare($sql);
-            $stmt->bindParam(':id_medico', $id_medico);
-            $stmt->bindParam(':id_paciente', $id_paciente);
-            $stmt->bindParam(':horario', $horario);
-            $stmt->bindParam(':agendador', $agendador);
-            
-            if ($stmt->execute())
-            {
-                return getJsonResponse(true, 'Agendado com sucesso');
-            }
-            else return getJsonResponse(false, 'Erro ao agendar - ' . $stmt->errorInfo());
-        }
-
-        public static function selectEdit($id){
-            
-
-                $sql = "SELECT * FROM agenda where id = :id"; 
-                $DB = new DB; 
-                $stmt = $DB->prepare($sql);
-                $stmt->bindParam(':id', $id);
+class Agenda {
+    public static function save(
+        $id_medico,
+        $id_paciente,
+        $horario,
+        $agendador
+    ){
         
-                if ($stmt->execute())
-                {
-                    $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-                    if(count($agendas) <= 0){
-                        return getJsonResponse(false, $msgErro);
-                    }
-                    else{
-                    $agenda = $agendas[0];
-                 
-                        $editAgenda = array(
-                            'id' => $agenda['id'],
-                            'id_medico' => $agenda['id_medico'],
-                            'id_paciente'=> $agenda['id_paciente'],
-                            'horario' => $agenda['horario'],
-                            'agendador' => $agenda['agendador'],
-            
-                        );
-                 
-            
-                    return json_encode($editAgenda);   
-                   }
-                }
-                else
-                {
-                   return getJsonResponse(false, 'Erro ao editar Agenda- ' . $stmt->errorInfo());
-                }
-            
+        // validação (bem simples, só pra evitar dados vazios)
+        if (empty($id_medico)
+        ||  empty($id_paciente)
+        ||  empty($horario)
+        ){
+        
+            return getJsonResponse(false, 'Campos nao informados');
         }
+  
+        // insere no banco
+        $DB = new DB;
+        //insere na tabela usuario    
+        $sql = "INSERT INTO agenda(id_medico, id_paciente, horario, agendador) VALUES(:id_medico, :id_paciente, :horario, :agendador)";
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':id_medico', $id_medico);
+        $stmt->bindParam(':id_paciente', $id_paciente);
+        $stmt->bindParam(':horario', $horario);
+        $stmt->bindParam(':agendador', $agendador);
+        
+        if ($stmt->execute())
+        {
+            return getJsonResponse(true, 'Agendado com sucesso');
+        }
+        else return getJsonResponse(false, 'Erro ao agendar - ' . $stmt->errorInfo());
+    }
 
+    public static function selectEdit($id){
+        $sql = "SELECT * FROM agenda where id = :id";
 
-        public static function selectConsultas($data, $medico){
-            $sql = "SELECT TIME_FORMAT(horario, '%H:%i') AS horario
-                         , NULL AS nome
+        $DB = new DB; 
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':id', $id);
 
-                       FROM agendaPadrao
-                       WHERE TIME(horario) NOT IN (SELECT TIME(horario)
-                                                      FROM agenda
-                                                      WHERE id_medico = :medico
-                                                       AND DATE(horario) = :data)
+        if ($stmt->execute()){
+            $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($agendas) <= 0){
+                return getJsonResponse(false, 'Houve um erro');
+            }
+            else{
+                $agenda = $agendas[0];
+                $editAgenda = array(
+                    'id'         => $agenda['id'],
+                    'id_medico'  => $agenda['id_medico'],
+                    'id_paciente'=> $agenda['id_paciente'],
+                    'horario'    => $agenda['horario'],
+                    'agendador'  => $agenda['agendador'],
+                );
+
+                return json_encode($editAgenda);   
+            }
+        }
+        else return getJsonResponse(false, 'Erro ao editar');
+    }
+
+    public static function selectConsultas($data, $medico){
+        $sql = "SELECT TIME_FORMAT(horario, '%H:%i') AS horario
+                     , NULL AS nome
+
+                   FROM agendaPadrao
+                   WHERE TIME(horario) NOT IN (SELECT TIME(horario)
+                                                  FROM agenda
+                                                  WHERE id_medico = :medico
+                                                   AND DATE(horario) = :data)
+
+                UNION
+
+                   SELECT TIME_FORMAT(A.horario, '%H:%i') AS horario
+                        , A.paciente AS nome
+                   FROM agenda AS A
+                    
+                   WHERE A.id_medico = :medico
+                        AND DATE(horario) = :data
            
-                    UNION
-                       SELECT TIME_FORMAT(A.horario, '%H:%i') AS horario
-                            , U.nome AS nome
+                   ORDER BY horario"; 
 
-                          FROM agenda AS A
-                        
-                          INNER JOIN paciente AS P
-                             ON A.id_paciente = P.id
-                            
-                          INNER JOIN usuario AS U
-                             ON P.id_usuario = U.id
-                            
-                          WHERE A.id_medico = :medico
-                            AND DATE(horario) = :data
-               
-                       ORDER BY horario"; 
-
-            $DB = new DB; 
-            $stmt = $DB->prepare($sql);
-            $stmt->bindParam(':data', $data);
-            $stmt->bindParam(':medico',$medico);
+        $DB = new DB; 
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':data', $data);
+        $stmt->bindParam(':medico',$medico);
     
-            if ($stmt->execute())
-            {
-                $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-                if(count($agendas) <= 0){
-                    return getJsonResponse(false, 'Erro ao consultar');
-                }
-                else{
-                    for ($i = 0; $i < count($agendas); $i++) {
-                        $agenda = $agendas[$i];
-                        $arrayAgenda[$i] = array(
-                            'nomePaciente'=> $agenda['nome'],
-                            'horario' => $agenda['horario']
-                        );
-                    }
-             
-                    return json_encode($arrayAgenda);   
-               }
+        if ($stmt->execute()){
+            $agendas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            if(count($agendas) <= 0){
+                return getJsonResponse(false, 'Erro ao consultar');
             }
-            else return getJsonResponse(false, 'Não há consultas ');
-        
+            else{
+                for ($i = 0; $i < count($agendas); $i++) {
+                    $agenda = $agendas[$i];
+                    $arrayAgenda[$i] = array(
+                        'nomePaciente'=> $agenda['nome'],
+                        'horario' => $agenda['horario']
+                    );
+                }
+         
+                return json_encode($arrayAgenda);   
+           }
+        }
+        else return getJsonResponse(false, 'Não há consultas ');
     }
 
         public static function update($id, $id_medico, $id_paciente, $horario, $agendador)
