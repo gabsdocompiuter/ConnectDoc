@@ -82,21 +82,17 @@ $app->get('/remove/{id}', function ($request)
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->remove($id);
 });
+
 //exibe todas agendas para a secretaria
-$app->get('/agenda', function ()
-{
-    
+$app->get('/agenda', function (){
     $AgendaController = new \App\Controllers\AgendaController;
     $AgendaController->agenda();
-    
 });
+
 //cadastrar uma nova agenda
-$app->post('/agenda/cadastrar', function ()
-{
-    
+$app->post('/agenda/cadastrar', function (){
     $AgendaController = new \App\Controllers\AgendaController;
     $AgendaController->store();
-    
 });
 
 // edição de usuário

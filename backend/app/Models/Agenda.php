@@ -4,36 +4,31 @@ include_once BASE_PATH . "/config.php";
 
 class Agenda {
     public static function save(
-        $id_medico,
-        $id_paciente,
-        $horario,
-        $agendador
+        $medico,
+        $paciente,
+        $horario
     ){
-        
-        // validação (bem simples, só pra evitar dados vazios)
-        if (empty($id_medico)
-        ||  empty($id_paciente)
-        ||  empty($horario)
-        ){
-        
-            return getJsonResponse(false, 'Campos nao informados');
-        }
-  
+
         // insere no banco
         $DB = new DB;
         //insere na tabela usuario    
-        $sql = "INSERT INTO agenda(id_medico, id_paciente, horario, agendador) VALUES(:id_medico, :id_paciente, :horario, :agendador)";
+        $sql = "INSERT INTO agenda
+                   VALUES (DEFAULT
+                         , :medico
+                         , :horario
+                         , :paciente
+                         , NULL);";
+
         $stmt = $DB->prepare($sql);
-        $stmt->bindParam(':id_medico', $id_medico);
-        $stmt->bindParam(':id_paciente', $id_paciente);
+        $stmt->bindParam(':medico', $medico);
+        $stmt->bindParam(':paciente', $paciente);
         $stmt->bindParam(':horario', $horario);
-        $stmt->bindParam(':agendador', $agendador);
         
         if ($stmt->execute())
         {
             return getJsonResponse(true, 'Agendado com sucesso');
         }
-        else return getJsonResponse(false, 'Erro ao agendar - ' . $stmt->errorInfo());
+        else return getJsonResponse(false, 'Houve um erro ao agendar');
     }
 
     public static function selectEdit($id){
