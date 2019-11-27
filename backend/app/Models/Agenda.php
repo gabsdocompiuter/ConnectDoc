@@ -79,36 +79,37 @@ include_once BASE_PATH . "/config.php";
         }
 
 
-        public static function selectConsultas($id, $dia, $mes, $ano){
+        public static function selectConsultas($data, $medico){
             $sql = "SELECT TIME(horario) AS horario
-            , NULL AS nome
-          FROM agendaPadrao
-          WHERE TIME(horario) NOT IN (SELECT TIME(horario)
-                                         FROM agenda
-                                         WHERE id_medico = :id
-                                           AND RIGHT(date(horario),2) = :dia AND Left(RIGHT(date(horario),5),2) = :mes AND LEFT(DATE(horario),4) = :ano)
+                         , NULL AS nome
+
+                       FROM agendaPadrao
+                       WHERE TIME(horario) NOT IN (SELECT TIME(horario)
+                                                      FROM agenda
+                                                      WHERE id_medico = :medico
+                                                       AND DATE(horario) = :data)
            
-       UNION
-          SELECT TIME(A.horario) AS horario
-               , U.nome AS nome
-             FROM agenda AS A
-           
-             INNER JOIN paciente AS P
-                ON A.id_paciente = P.id
+                    UNION
+                       SELECT TIME(A.horario) AS horario
+                            , U.nome AS nome
+
+                          FROM agenda AS A
+                        
+                          INNER JOIN paciente AS P
+                             ON A.id_paciente = P.id
+                            
+                          INNER JOIN usuario AS U
+                             ON P.id_usuario = U.id
+                            
+                          WHERE A.id_medico = :medico
+                            AND DATE(horario) = :data
                
-             INNER JOIN usuario AS U
-                ON P.id_usuario = U.id
-               
-             WHERE A.id_medico = :id
-               AND RIGHT(date(horario),2) = :dia AND Left(RIGHT(date(horario),5),2) = :mes AND LEFT(DATE(horario),4) = :ano
-               
-           ORDER BY horario"; 
+                       ORDER BY horario"; 
+
             $DB = new DB; 
             $stmt = $DB->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->bindParam(':dia',$dia);
-            $stmt->bindParam(':ano',$ano);
-            $stmt->bindParam(':mes',$mes);
+            $stmt->bindParam(':data', $data);
+            $stmt->bindParam(':medico',$medico);
     
             if ($stmt->execute())
             {
@@ -125,14 +126,10 @@ include_once BASE_PATH . "/config.php";
                         );
                     }
              
-        
-                return json_encode($arrayAgenda);   
+                    return json_encode($arrayAgenda);   
                }
             }
-            else
-            {
-               return getJsonResponse(false, 'Não há consultas ' . $stmt->errorInfo());
-            }
+            else return getJsonResponse(false, 'Não há consultas ');
         
     }
 
