@@ -80,7 +80,7 @@ include_once BASE_PATH . "/config.php";
 
 
         public static function selectConsultas($data, $medico){
-            $sql = "SELECT TIME(horario) AS horario
+            $sql = "SELECT TIME_FORMAT(horario, '%H:%i') AS horario
                          , NULL AS nome
 
                        FROM agendaPadrao
@@ -90,7 +90,7 @@ include_once BASE_PATH . "/config.php";
                                                        AND DATE(horario) = :data)
            
                     UNION
-                       SELECT TIME(A.horario) AS horario
+                       SELECT TIME_FORMAT(A.horario, '%H:%i') AS horario
                             , U.nome AS nome
 
                           FROM agenda AS A
