@@ -31,6 +31,21 @@ const selecionado = {
         });
 
         return data;
+    },
+
+    dataPontuada: () => {
+        const ano = selecionado.ano;
+        const dia = selecionado.dia;
+        let data = 0;
+
+        monthNames.map((name, index) => {
+            if(name.substring(0, 3) == selecionado.mes){
+                const mes = index + 1;
+                data = `${dia}/${mes}/${ano}`;
+            }
+        });
+
+        return data;
     }
 }
 
@@ -135,7 +150,7 @@ function montaAgenda(){
                     medAgenda.setAttribute('class', 'medico agenda');
                     medAgenda.appendChild(linha);
 
-                    leHorarios(medico.id, medAgenda);
+                    leHorarios(medico, medAgenda);
 
                     const divMedico = document.createElement('div');
                     divMedico.setAttribute('class', 'medico');
@@ -148,8 +163,8 @@ function montaAgenda(){
             });
     }
 
-    function leHorarios(medId, divAgenda){
-        const endpoint = `http://localhost/backend/agenda/consultas/${selecionado.data()}/${medId}`;
+    function leHorarios(medico, divAgenda){
+        const endpoint = `http://localhost/backend/agenda/consultas/${selecionado.data()}/${medico.id}`;
         console.log(endpoint);
         
         fetch(endpoint)
@@ -177,13 +192,42 @@ function montaAgenda(){
                         closeButton.setAttribute('class', 'close');
                         closeButton.innerText = 'x';
 
-                        const content = document.createElement('p');
-                        content.innerText = 'isso é um teste que não vai funcionar';
+                        const nomeMedico = document.createElement('h1');
+                        nomeMedico.innerText = medico.nome;
+
+                        const dataHora = document.createElement('h3');
+                        dataHora.innerText = `${selecionado.dataPontuada()} – ${agendamento.horario}`;
+
+                        const horarioInfo = document.createElement('div');
+                        horarioInfo.setAttribute('class', 'horarioInfo');
+                        horarioInfo.appendChild(nomeMedico);
+                        horarioInfo.appendChild(dataHora);
+
+                        const label = document.createElement('label');
+                        label.innerText = 'Nome do paciente';
+
+                        const inputNome = document.createElement('input');
+                        inputNome.setAttribute('class', 'inputNome');
+                        inputNome.setAttribute('name', 'inputNome');
+
+                        const pacienteInfo = document.createElement('div');
+                        pacienteInfo.setAttribute('class', 'pacienteInfo');
+                        pacienteInfo.appendChild(label);
+                        pacienteInfo.appendChild(inputNome);
+
+                        const content = document.createElement('div');
+                        content.setAttribute('class', 'content');
+                        content.appendChild(horarioInfo);
+                        content.appendChild(pacienteInfo);
+
+                        const buttonSave = document.createElement('button');
+                        buttonSave.innerText = 'Marcar Horário';
 
                         const modalContent = document.createElement('div');
                         modalContent.setAttribute('class', 'modal-content');
                         modalContent.appendChild(closeButton);
                         modalContent.appendChild(content);
+                        modalContent.appendChild(buttonSave);
 
                         const modal = document.createElement('div');
                         modal.setAttribute('id', 'modal');
