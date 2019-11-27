@@ -18,36 +18,29 @@ $app->get('/', function ()
     
 });
 
-$app->get('/cadastrar', function ()
-{
-    
+$app->get('/cadastrar', function (){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->cadastrar();
-    
 });
 
-$app->post('/cadastrar', function ()
-{
+
+$app->post('/cadastrar', function (){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->store();
 });
 
 
-
-$app->get('/login', function ()
-{
+$app->get('/login', function (){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->loginHome();
-    
 });
 
-$app->post('/login', function ()
-{
-    
+
+$app->post('/login', function (){   
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->logar();
-    
 });
+
 
 $app->get('/sair', function (){
     $UsersController = new \App\Controllers\UsersController;
@@ -57,8 +50,7 @@ $app->get('/sair', function (){
  
 // edição de usuário
 // exibe o formulário de edição
-$app->get('/edit/{id}', function ($request)
-{
+$app->get('/edit/{id}', function ($request){
     // pega o ID da URL
     $id = $request->getAttribute('id');
  
@@ -66,9 +58,9 @@ $app->get('/edit/{id}', function ($request)
     $UsersController->edit($id);
 });
  
+
 // processa o formulário de edição
-$app->post('/edit', function ()
-{
+$app->post('/edit', function (){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->update();
 });
@@ -139,24 +131,30 @@ $app->get('/user/{user}', function ($request){
     $UsersController->getUserByName($user);
 });
 
-$app->get('/users/medicos', function ($request)
-{
+
+$app->get('/users/medicos', function ($request){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->listarMedicos();
 });
 
-$app->get('/users/pacientes', function ($request)
-{
+
+$app->get('/users/pacientes', function ($request){
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->listarPacientes();
 });
 
-$app->get('/dias/{mes}', function ($request)
-{
+$app->get('/categorias', function ($request){
+    $CategoriaController = new \App\Controllers\CategoriaController;
+    $CategoriaController->index();
+});
+
+
+$app->get('/dias/{mes}', function ($request){
     $mes = $request->getAttribute('mes');
 
     $CalendarioController = new \App\Controllers\CalendarioController;
     $CalendarioController->listarDias($mes);
 });
- 
+
+
 $app->run();
