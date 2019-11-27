@@ -4,10 +4,10 @@
             <img src="/frontend/assets/logo_white.png" alt="Logo ConnectDoc"/>
         </div>
         <div class="menuBottons">
-            <ul>
-                <li onclick="goTo('visualizar')" class="active">Ver Agenda</li>
-                <li onclick="goTo('cadastrar')">Cadastrar</li>
-                <li onclick="goTo('logout')" >Sair</li>
+            <ul id="menuLista">
+                <li id="li_dash" onclick="goTo('dash')" class="active">Ver Agenda</li>
+                <li id="li_cadastrar" onclick="goTo('cadastrar')">Cadastrar</li>
+                <li id="li_logout" onclick="goTo('logout')" >Sair</li>
             </ul>
         </div>
     </div>
@@ -16,7 +16,6 @@
 
 <script>
     function goTo(page){
-        alert(`going to ${page}`);
+        window.location.href = page;
     }
-
 </script>
