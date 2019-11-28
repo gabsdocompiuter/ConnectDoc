@@ -18,11 +18,6 @@ $app->get('/', function ()
     
 });
 
-$app->get('/cadastrar', function (){
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->cadastrar();
-});
-
 
 $app->post('/cadastrar', function (){
     $UsersController = new \App\Controllers\UsersController;

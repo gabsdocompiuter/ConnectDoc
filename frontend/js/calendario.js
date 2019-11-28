@@ -160,7 +160,7 @@ function montaAgenda(){
                     medicos.appendChild(divMedico);
 
                 })
-            });
+            })
     }
 
     function leHorarios(medico, divAgenda){

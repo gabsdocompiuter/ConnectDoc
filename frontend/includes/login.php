@@ -6,11 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ConnectDoc login</title>
 
-        <link rel="stylesheet" href="<?= getIncludesDir('css/style.css') ?>" >
-        <link rel="stylesheet" href="<?= getIncludesDir('css/login.css') ?>" >
+        <link rel="stylesheet" href='frontend/css/style.css' >
+        <link rel="stylesheet" href='frontend/css/login.css' >
     </head>
     <body>
-        <div class="container">
+        <div class="containerLogin">
             <div id="logo">
                 <img src="<?= getIncludesDir('assets/logo_white.png') ?>" alt="Logo ConnectDoc"/>
             </div>

@@ -13,8 +13,7 @@ class UsersController {
     }
 
     //processa o cadastro e insere no BD
-    public function store()
-    {
+    public function store(){
         // pega os dados do formuário
         $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
         $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;

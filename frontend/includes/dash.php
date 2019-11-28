@@ -8,6 +8,7 @@
 
         <link rel="stylesheet" type="text/css" href="frontend/css/style.css">
         <link rel="stylesheet" type="text/css" href="frontend/css/modal.css">
+        <link rel="stylesheet" type="text/css" href="frontend/css/loading.css">
         <link rel="stylesheet" type="text/css" href="frontend/css/consultas.css">
 
         <title>ConnectDoc</title>
@@ -29,6 +30,8 @@
         
         <script src="frontend/js/core/axios.min.js"></script>
         <script src="frontend/js/formAjax.js"></script>
+
+        <script src="frontend/js/padrao.js"></script>
         <script src="frontend/js/calendario.js"></script>
     </body>
 </html>
